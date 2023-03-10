@@ -4,7 +4,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { Link } from "react-router-dom";
 const Header = () => {
   return (
-    <div className="w-full h-[60px] shadow-md relative px-24">
+    <div className="w-full h-[60px] shadow-md px-24 z-10 bg-slate-200 fixed top-0">
       <div className="flex justify-between items-center h-full">
         <div className="flex items-center justify-center">
           <img src={logo} alt="" />

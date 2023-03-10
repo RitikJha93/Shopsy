@@ -12,7 +12,7 @@ const Hero = () => {
     background: "#364d79",
   };
   return (
-    <div className="relative">
+    <div className="relative mt-[60px]">
       <Carousel autoplay>
         <div style={contentStyle}>
           <img className="h-[92vh] object-cover w-[100vw]"  src={banner1} alt="" />
