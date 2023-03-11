@@ -9,7 +9,7 @@ const LatestProducts = () => {
         {products.map((product) => {
           return (
             <div>
-              <SingleProduct product={product} />
+              <SingleProduct key={product._id} product={product} />
             </div>
           );
         })}
