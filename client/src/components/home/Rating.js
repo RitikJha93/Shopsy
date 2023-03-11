@@ -3,7 +3,7 @@ import { BsStarHalf } from "react-icons/bs";
 import { BsStar } from "react-icons/bs";
 const Rating = ({ value, text,color }) => {
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex justify-between w-[240px] items-center">
       <div className="flex items-center">
         {value >= 1 ? (
           <BsStarFill color={color} />

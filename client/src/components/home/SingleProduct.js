@@ -4,7 +4,7 @@ import Rating from "./Rating";
 const SingleProduct = ({ product }) => {
   return (
     <Link to={`/product/${product._id}`}>
-      <div className="p-2 cursor-pointer hover:shadow-md">
+      <div className="p-2 cursor-pointer hover:shadow-md border-[2px]" >
         <img src={product.image} className="rounded-lg" alt="" />
         <div className="mt-2">
           <h2 className="font-bold text-lg">{product.name}</h2>
