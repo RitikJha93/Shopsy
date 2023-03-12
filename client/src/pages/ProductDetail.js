@@ -12,7 +12,7 @@ const ProductDetail = () => {
 
     useEffect(() => {
         setId(path.id)
-    }, [])
+    }, [path.id])
     
     const selectedProduct = products.find((product)=>product._id === id)
   return (

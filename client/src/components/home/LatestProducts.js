@@ -1,7 +1,7 @@
 import { Col, Row } from "antd";
-import products from "../../products";
+
 import SingleProduct from "./SingleProduct";
-const LatestProducts = () => {
+const LatestProducts = ({ products }) => {
   return (
     <div className="my-4 relative px-6">
       <h2 className="font-bold text-2xl text-center mb-3">Latest Products</h2>
