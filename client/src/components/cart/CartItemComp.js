@@ -2,10 +2,14 @@ import { useState } from "react";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../redux/actions/cartActions";
+import { addToCart, removeFromCart } from "../../redux/actions/cartActions";
 const CartItemComp = ({ cartItems }) => {
 
   const dispatch = useDispatch();
+
+  const removeCartHandler = (id) =>{
+    dispatch(removeFromCart(id))
+  }
   return (
     <div className="col-span-2">
         {cartItems.map((cartItem) => {
@@ -48,7 +52,7 @@ const CartItemComp = ({ cartItems }) => {
                     }}
                   />
                 </div>
-                <RiDeleteBin6Line className="text-red-600 text-2xl cursor-pointer" />
+                <RiDeleteBin6Line onClick={() =>removeCartHandler(cartItem.product)} className="text-red-600 text-2xl cursor-pointer" />
               </div>
               <hr className="my-4" />
             </>
