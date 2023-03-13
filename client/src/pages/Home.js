@@ -3,7 +3,8 @@ import LatestProducts from "../components/home/LatestProducts";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../redux/actions/productActions";
-import { Spin } from "antd";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
 
 const Home = () => {
   const productList = useSelector((state) => state.productList);
@@ -15,10 +16,8 @@ const Home = () => {
   return (
     <div>
       {loading ? (
-        <div className="h-[100vh] flex items-center justify-center">
-          <Spin size="large" />
-        </div>
-      ) : (
+        <Loader />
+      ) : error ? <Message message={error} type={'error'} /> : (
         <>
           <Hero />
           <LatestProducts products={products} />

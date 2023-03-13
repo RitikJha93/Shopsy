@@ -8,7 +8,6 @@ import store from "./redux/store/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-console.log(store.getState());
 root.render(
   <Provider store={store}>
     <BrowserRouter>

@@ -1,25 +1,34 @@
-import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import ProductDetailComp from "../components/productDetail/ProductDetailComp"
-import Reviews from "../components/productDetail/Reviews"
-import products from "../products"
-
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import Loader from "../components/Loader";
+import ProductDetailComp from "../components/productDetail/ProductDetailComp";
+import Reviews from "../components/productDetail/Reviews";
+import { listProductDetails } from "../redux/actions/productActions";
+import Message from "../components/Message";
 const ProductDetail = () => {
+  const path = useParams();
 
-    const [id, setId] = useState()
-    
-    const path = useParams()
+  const dispatch = useDispatch();
+  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, product, error } = productDetails;
+  useEffect(() => {
+    dispatch(listProductDetails(path.id));
+  }, [dispatch, path.id]);
 
-    useEffect(() => {
-        setId(path.id)
-    }, [path.id])
-    
-    const selectedProduct = products.find((product)=>product._id === id)
   return (
-    <div className="mt-24 relative px-24 py-6">
-        <ProductDetailComp selectedProduct={selectedProduct} />
-        <Reviews selectedProduct={selectedProduct} />
-    </div>
-  )
-}
-export default ProductDetail
+    <>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message type={"error"} message={error.response.data.message} />
+      ) : (
+        <div className="mt-24 relative md:px-24 sm:px-12 px-6">
+          <ProductDetailComp selectedProduct={product} />
+          <Reviews selectedProduct={product} />
+        </div>
+      )}
+    </>
+  );
+};
+export default ProductDetail;

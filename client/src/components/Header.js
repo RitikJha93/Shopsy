@@ -31,21 +31,31 @@ const Header = () => {
             />
           )}
           <Link to={"/about"}>
-            <li className="mb-0 md:my-0 my-7 md:mx-10 md:ml-0 ml-12  font-semibold text-lg mx-4">About</li>
+            <li className="mb-0 md:my-0 my-7 md:mx-10 md:ml-0 ml-12  font-semibold text-lg mx-4">
+              About
+            </li>
           </Link>
           <Link to={"/products"}>
-            <li className="mb-0 md:my-0 my-7 md:mx-10 md:ml-0 ml-12  font-semibold text-lg mx-4">Products</li>
+            <li className="mb-0 md:my-0 my-7 md:mx-10 md:ml-0 ml-12  font-semibold text-lg mx-4">
+              Products
+            </li>
           </Link>
           <Link to={"/contact"}>
-            <li className="mb-0 md:my-0 my-7 md:mx-10 md:ml-0 ml-12  font-semibold text-lg mx-4">Contact</li>
+            <li className="mb-0 md:my-0 my-7 md:mx-10 md:ml-0 ml-12  font-semibold text-lg mx-4">
+              Contact
+            </li>
           </Link>
           <Link to={"/shop"}>
-            <li className="mb-0 md:my-0 my-7 md:mx-10 md:ml-0 ml-12 font-semibold text-lg mx-4">Shop</li>
+            <li className="mb-0 md:my-0 my-7 md:mx-10 md:ml-0 ml-12 font-semibold text-lg mx-4">
+              Shop
+            </li>
           </Link>
         </ul>
         <div className="flex items-center">
           <AiOutlineSearch className="text-2xl mr-4" />
-          <BsCart4 className="text-2xl" />
+          <Link to={'/cart'}>
+            <BsCart4 className="text-2xl cursor-pointer" />
+          </Link>
         </div>
       </div>
     </div>
