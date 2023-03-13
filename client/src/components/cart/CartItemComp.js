@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/actions/cartActions";
 const CartItemComp = ({ cartItems }) => {
-  const [quantity, setQuantity] = useState(1);
 
+  const dispatch = useDispatch();
   return (
     <div className="col-span-2">
-      <div>
         {cartItems.map((cartItem) => {
           return (
             <>
@@ -23,14 +24,28 @@ const CartItemComp = ({ cartItems }) => {
                 <div className="flex items-center justify-between w-[100px] py-2 px-3 rounded-full border border-gray-700">
                   <AiOutlineMinus
                     className="cursor-pointer"
-                    onClick={() =>
-                      quantity > 1 ? setQuantity(quantity - 1) : setQuantity(1)
-                    }
+                    onClick={() => {
+                      cartItem.quantity > 1
+                        ? dispatch(
+                            addToCart(
+                              cartItem.product,
+                              Number(cartItem.quantity - 1)
+                            )
+                          )
+                        : dispatch(addToCart(cartItem.product, Number(1)));
+                    }}
                   />
                   <p>{cartItem.quantity}</p>
                   <AiOutlinePlus
                     className="cursor-pointer"
-                    onClick={() => setQuantity(quantity + 1)}
+                    onClick={() => {
+                      dispatch(
+                        addToCart(
+                          cartItem.product,
+                          Number(cartItem.quantity + 1)
+                        )
+                      );
+                    }}
                   />
                 </div>
                 <RiDeleteBin6Line className="text-red-600 text-2xl cursor-pointer" />
@@ -39,7 +54,6 @@ const CartItemComp = ({ cartItems }) => {
             </>
           );
         })}
-      </div>
     </div>
   );
 };
