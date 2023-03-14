@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 const db = require('./db/db')
 const colors = require('colors')
 const productRoutes = require('./routes/productRoutes')
+const userRoutes = require('./routes/userRoutes')
 dotenv.config()
 app.use(express.json())
 db()
@@ -18,6 +19,7 @@ app.get('/',(req,res)=>{
     res.send("server running")
 })
 app.use('/api/products',productRoutes)
+app.use('/api/users',userRoutes)
 app.listen(5000,()=>{
     console.log('server started successfully'.yellow.bold);
 })

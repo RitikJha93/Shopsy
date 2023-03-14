@@ -9,7 +9,7 @@ import { useState } from "react";
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   return (
-    <div className="w-full h-[60px] shadow-md md:px-24 sm:px-12 px-6 z-[18] bg-slate-200 fixed top-0">
+    <div className="w-full h-[60px] shadow-md md:px-24 sm:px-12 px-6 z-[18] bg-white fixed top-0">
       <div className="flex justify-between items-center h-full">
         <div className="flex items-center justify-center cursor-pointer">
           <BiMenuAltLeft
@@ -20,7 +20,7 @@ const Header = () => {
           <h2 className="ml-3 font-bold text-xl mb-0">Shopsy</h2>
         </div>
         <ul
-          className={`flex md:items-center md:justify-center transition ease-linear duration-500 md:flex-row md:static absolute top-[0] md:py-0 py-20 bg-slate-200 ${
+          className={`flex md:items-center md:justify-center transition ease-linear duration-500 md:flex-row md:static absolute top-[0] md:py-0 py-20 bg-white ${
             menuOpen ? "left-0" : "sm:left-[-320px] left-[-280px]"
           } z-20 sm:w-[320px] w-[280px] md:h-[0] h-[100vh] flex-col mb-0`}
         >

@@ -1,6 +1,6 @@
 import { Button, Carousel } from "antd";
-import banner1 from "../../assets/bannerimg1.jpg";
-import banner2 from "../../assets/bannerimg2.jpg";
+import banner1 from "../../assets/banner3.webp";
+import banner2 from "../../assets/banner4.webp";
 const Hero = () => {
   const contentStyle = {
     height: "92vh",
