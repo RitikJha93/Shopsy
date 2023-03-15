@@ -9,7 +9,7 @@ export const userLoginRequest = (email, password) => async (dispatch) => {
       },
     };
     const { data } = await axios.post(
-      `http://localhost:5000/api/users/login`,
+      `${process.env.REACT_APP_BACKEND_URI}/api/users/login`,
       { email, password },
       config
     );
