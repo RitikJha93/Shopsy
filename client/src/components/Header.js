@@ -5,9 +5,14 @@ import { Link } from "react-router-dom";
 import { BiMenuAltLeft } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import MenuComp from "./MenuComp";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userData } = userLogin;
+
   return (
     <div className="w-full h-[60px] shadow-md md:px-24 sm:px-12 px-6 z-[18] bg-white fixed top-0">
       <div className="flex justify-between items-center h-full">
@@ -52,10 +57,19 @@ const Header = () => {
           </Link>
         </ul>
         <div className="flex items-center">
-          <AiOutlineSearch className="text-2xl mr-4" />
-          <Link to={'/cart'}>
-            <BsCart4 className="text-2xl cursor-pointer" />
+          <AiOutlineSearch className="text-2xl " />
+          <Link to={"/cart"}>
+            <BsCart4 className="text-2xl mx-5 cursor-pointer" />
           </Link>
+          {userData ? (
+            <MenuComp name={userData?.name} />
+          ) : (
+            <Link to={"/login"}>
+              <button className="border border-blue-500 px-4 py-2 rounded-lg hover:bg-blue-500 hover:text-white transition duration-300">
+                Sign In
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </div>
