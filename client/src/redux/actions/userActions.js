@@ -24,7 +24,33 @@ export const userLoginRequest = (email, password) => async (dispatch) => {
   }
 };
 
-export const userLogout = () => (dispatch)=>{
-    dispatch({type:'USER_LOGOUT'})
-    localStorage.removeItem('userData')
-}
+export const userLogout = () => (dispatch) => {
+  dispatch({ type: "USER_LOGOUT" });
+  localStorage.removeItem("userData");
+};
+
+export const userRegisterRequest =
+  (name, email, password) => async (dispatch) => {
+    dispatch({ type: "USER_REGISTER_REQUEST" });
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_BACKEND_URI}/api/users/register`,
+        { name, email, password },
+        config
+      );
+      console.log(data);
+      dispatch({ type: "USER_REGISTER_SUCCESS", payload: data });
+      dispatch({ type: "USER_LOGIN_SUCCESS", payload: data });
+      localStorage.setItem("userData", JSON.stringify(data));
+    } catch (error) {
+      dispatch({
+        type: "USER_REGISTER_FAILURE",
+        payload: error?.response?.data.message,
+      });
+    }
+  };
