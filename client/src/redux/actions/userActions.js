@@ -82,3 +82,30 @@ export const getUserRequest = (id) => async (dispatch, getState) => {
     console.log(error);
   }
 };
+export const updateUserProfile = (user) => async (dispatch, getState) => {
+  dispatch({ type: "USER_UPDATE_PROFILE_REQUEST" });
+
+  const {
+    userLogin: { userData },
+  } = getState();
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userData.token}`,
+      },
+    };
+    const { data } = await axios.put(
+      `${process.env.REACT_APP_BACKEND_URI}/api/users/profile`,user,
+      config
+    );
+    console.log(data);
+      dispatch({ type: "USER_UPDATE_PROFILE_SUCCESS", payload: data})
+  } catch (error) {
+    dispatch({
+      type: "USER_UPDATE_PROFILE_FAILURE",
+      payload: error?.response?.data.message,
+    });
+    console.log(error);
+  }
+};
