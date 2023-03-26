@@ -33,7 +33,7 @@ const registerUser = async (req, res) => {
   if (!name || !email || !password) {
     return res
       .status(400)
-      .json({ message: "Please fill in all the input fields" });
+      .json({ 'message': "Please fill in all the input fields" });
   }
 
   //if email is already registered
@@ -41,7 +41,7 @@ const registerUser = async (req, res) => {
   if (userExists) {
     return res
       .status(400)
-      .json({ message: "User with this email already exists" });
+      .json({ 'message': "User with this email already exists" });
   }
 
   //salting the password
@@ -68,7 +68,7 @@ const registerUser = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(400).json({ message: "Failed to create the user" });
+    res.status(400).json({ 'message': "Failed to create the user" });
   }
 };
 
@@ -84,7 +84,7 @@ const getProfile = async (req, res) => {
       });
     }
   } catch (error) {
-    res.status(500).json({ message: "User not found" });
+    res.status(500).json({ 'message': "User not found" });
   }
 };
 module.exports = { authUser, registerUser, getProfile };
