@@ -16,14 +16,16 @@ const Header = () => {
   return (
     <div className="w-full h-[60px] shadow-md md:px-24 sm:px-12 px-6 z-[18] bg-white fixed top-0">
       <div className="flex justify-between items-center h-full">
-        <div className="flex items-center justify-center cursor-pointer">
-          <BiMenuAltLeft
-            className="md:hidden block text-3xl mr-4"
-            onClick={() => setMenuOpen(true)}
-          />
-          <img src={logo} alt="" />
-          <h2 className="ml-3 font-bold text-xl mb-0">Shopsy</h2>
-        </div>
+        <Link to={"/"}>
+          <div className="flex items-center justify-center cursor-pointer">
+            <BiMenuAltLeft
+              className="md:hidden block text-3xl mr-4"
+              onClick={() => setMenuOpen(true)}
+            />
+            <img src={logo} alt="" />
+            <h2 className="ml-3 font-bold text-xl mb-0">Shopsy</h2>
+          </div>
+        </Link>
         <ul
           className={`flex md:items-center md:justify-center transition ease-linear duration-500 md:flex-row md:static absolute top-[0] md:py-0 py-20 bg-white ${
             menuOpen ? "left-0" : "sm:left-[-320px] left-[-280px]"

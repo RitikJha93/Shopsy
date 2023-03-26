@@ -65,7 +65,7 @@ export const getUserRequest = (id) => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${userData}`,
+        Authorization: `Bearer ${userData.token}`,
       },
     };
     const { data } = await axios.get(
