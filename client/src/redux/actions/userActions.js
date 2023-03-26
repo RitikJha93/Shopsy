@@ -52,5 +52,33 @@ export const userRegisterRequest =
         type: "USER_REGISTER_FAILURE",
         payload: error?.response?.data.message,
       });
+      console.log(error);
     }
   };
+export const getUserRequest = (id) => async (dispatch, getState) => {
+  dispatch({ type: "USER_DETAILS_REQUEST" });
+
+  const {
+    userLogin: { userData },
+  } = getState();
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userData}`,
+      },
+    };
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URI}/api/users/${id}`,
+      config
+    );
+    console.log(data);
+      dispatch({ type: "USER_DETAILS_SUCCESS", payload: data})
+  } catch (error) {
+    dispatch({
+      type: "USER_DETAILS_FAILURE",
+      payload: error?.response?.data.message,
+    });
+    console.log(error);
+  }
+};

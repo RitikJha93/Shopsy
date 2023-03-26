@@ -4,15 +4,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { userRegisterRequest } from "../../redux/actions/userActions";
 import Loader from "../Loader";
 import Message from "../Message";
-import Login from "./Login";
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { loading, userData, error } = userLogin;
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loading, userData, error } = userRegister;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
