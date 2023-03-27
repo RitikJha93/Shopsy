@@ -8,6 +8,8 @@ import Home from './pages/Home';
 import ProductDetail from './pages/ProductDetail';
 import Profile from './pages/Profile';
 
+
+console.log(process.env.REACT_APP_BACKEND_URL);
 function App() {
   return (
     <div className="App">

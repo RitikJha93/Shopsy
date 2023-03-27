@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   userLoginRequest,
@@ -12,9 +12,12 @@ const Login = ({ register }) => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
+  // console.log(document.location.search);
+  const location = useLocation();
+  const redirect = location.search ? location.search.split("=")[1] : "/";
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, userData, error } = userLogin;
-
+  console.log(redirect);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,9 +27,9 @@ const Login = ({ register }) => {
 
   useEffect(() => {
     if (userData) {
-      navigate("/");
+      navigate("/" + redirect);
     }
-  }, [navigate, userData]);
+  }, [navigate, userData, redirect]);
 
   return (
     <>
@@ -58,8 +61,10 @@ const Login = ({ register }) => {
             </button>
           )}
           <p className="mt-4">
-            Don't have an account ?{" "}
-            <Link to={"/register"}>
+            Don't have an account ?
+            <Link
+              to={redirect ? `/register?redirect=${redirect}` : "/register"}
+            >
               <span className="text-blue-500">Sign up</span>
             </Link>
           </p>

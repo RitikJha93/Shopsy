@@ -12,10 +12,10 @@ const CartItemComp = ({ cartItems }) => {
   }
   return (
     <div className="col-span-2">
-        {cartItems.map((cartItem) => {
+        {cartItems.map((cartItem,i) => {
           return (
             <>
-              <div className="flex items-center justify-between">
+              <div key={i} className="flex items-center justify-between">
                 <div className="flex w-[380px] items-center">
                   <img
                     className="max-w-[150px] rounded-xl"

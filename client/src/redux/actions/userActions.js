@@ -9,7 +9,7 @@ export const userLoginRequest = (email, password) => async (dispatch) => {
       },
     };
     const { data } = await axios.post(
-      `${process.env.REACT_APP_BACKEND_URI}/api/users/login`,
+      `${process.env.REACT_APP_BACKEND_URL}/api/users/login`,
       { email, password },
       config
     );
@@ -39,7 +39,7 @@ export const userRegisterRequest =
         },
       };
       const { data } = await axios.post(
-        `${process.env.REACT_APP_BACKEND_URI}/api/users/register`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/users/register`,
         { name, email, password },
         config
       );
@@ -69,7 +69,7 @@ export const getUserRequest = (id) => async (dispatch, getState) => {
       },
     };
     const { data } = await axios.get(
-      `${process.env.REACT_APP_BACKEND_URI}/api/users/${id}`,
+      `${process.env.REACT_APP_BACKEND_URL}/api/users/${id}`,
       config
     );
     console.log(data);
@@ -96,7 +96,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
       },
     };
     const { data } = await axios.put(
-      `${process.env.REACT_APP_BACKEND_URI}/api/users/profile`,user,
+      `${process.env.REACT_APP_BACKEND_URL}/api/users/profile`,user,
       config
     );
     console.log(data);

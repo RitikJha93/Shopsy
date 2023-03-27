@@ -14,7 +14,6 @@ const Cart = () => {
   const qty = document.location.search
     ? Number(document.location.search.split("=")[1])
     : 1;
-  console.log(qty, prodId);
 
   const dispatch = useDispatch();
 

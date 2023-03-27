@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { userRegisterRequest } from "../../redux/actions/userActions";
 import Loader from "../Loader";
 import Message from "../Message";
@@ -20,11 +20,13 @@ const Register = () => {
     dispatch(userRegisterRequest(name, email, password));
   };
 
+  const location = useLocation();
+  const redirect = location.search ? location.search.split("=")[1] : "/";
   useEffect(() => {
     if (userData) {
-      navigate("/");
+      navigate("/" + redirect);
     }
-  }, [navigate, userData]);
+  }, [navigate, userData, redirect]);
   return (
     <>
       {error && <Message type="error" message={error} />}
@@ -61,7 +63,7 @@ const Register = () => {
           )}
           <p className="mt-4">
             Already have an acoount ?{" "}
-            <Link to={"/login"}>
+            <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
               <span className="text-blue-500">Log in</span>
             </Link>
           </p>

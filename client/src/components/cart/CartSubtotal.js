@@ -1,13 +1,17 @@
+import { Link, useNavigate } from "react-router-dom";
+
 const CartSubtotal = ({ cartItems }) => {
+  const navigate = useNavigate();
+
   return (
     <div className="border-[2px] min-h-[300px] rounded-lg p-6">
       <h2 className="font-bold text-xl">
         CART SUBTOTAL ({cartItems.reduce((acc, item) => acc + item.quantity, 0)}
         ) ITEMS
       </h2>
-      {cartItems.map((item) => {
+      {cartItems.map((item,i) => {
         return (
-          <div className="flex items-center justify-between my-4">
+          <div key={i} className="flex items-center justify-between my-4">
             <h2 className="w-[200px]">{item.name}</h2>
             <p className="text-lg font-semibold">
               ${(item.price * item.quantity).toFixed(2)}
@@ -26,9 +30,11 @@ const CartSubtotal = ({ cartItems }) => {
         </p>
       </div>
 
-      <button className="bg-blue-500 text-lg text-white px-4 py-2 rounded-sm w-full mt-6">
-        Proceed to Checkout
-      </button>
+      <Link to={'/login?redirect=shipping'}>
+        <button className="bg-blue-500 text-lg text-white px-4 py-2 rounded-sm w-full mt-6">
+          Proceed to Checkout
+        </button>
+      </Link>
     </div>
   );
 };
