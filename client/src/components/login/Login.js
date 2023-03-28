@@ -7,17 +7,18 @@ import {
 } from "../../redux/actions/userActions";
 import Loader from "../Loader";
 import Message from "../Message";
-const Login = ({ register }) => {
+const Login = () => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
 
   // console.log(document.location.search);
   const location = useLocation();
-  const redirect = location.search ? location.search.split("=")[1] : "/";
+  console.log(location);
+  const redirect = location.search ? location.search.split("=")[1] : "";
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, userData, error } = userLogin;
-  console.log(redirect);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -27,7 +28,8 @@ const Login = ({ register }) => {
 
   useEffect(() => {
     if (userData) {
-      navigate("/" + redirect);
+      console.log(redirect);
+      navigate(`/${redirect}`);
     }
   }, [navigate, userData, redirect]);
 

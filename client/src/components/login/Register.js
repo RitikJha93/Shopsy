@@ -21,10 +21,10 @@ const Register = () => {
   };
 
   const location = useLocation();
-  const redirect = location.search ? location.search.split("=")[1] : "/";
+  const redirect = location.search ? location.search.split("=")[1] : "";
   useEffect(() => {
     if (userData) {
-      navigate("/" + redirect);
+      navigate(`/${redirect}`);
     }
   }, [navigate, userData, redirect]);
   return (
