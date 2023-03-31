@@ -1,6 +1,7 @@
 import { Button, message, Steps, theme } from "antd";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Order from "../pages/Order";
 import Payment from "../pages/Payment";
 import Shipping from "../pages/Shipping";
 import Login from "./login/Login";
@@ -67,7 +68,7 @@ const StepsComponent = () => {
         ) : steps[step].title === "Payment" && shippingAddress ? (
           <Payment />
         ) : (
-          <></>
+          <Order/>
         )}
       </div>
       <div
@@ -80,14 +81,6 @@ const StepsComponent = () => {
             Next
           </Button>
         )} */}
-        {step === steps.length - 1 && (
-          <Button
-            type="primary"
-            onClick={() => message.success("Processing complete!")}
-          >
-            Done
-          </Button>
-        )}
         {step > 0 && (
           <Button
             style={{
