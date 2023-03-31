@@ -6,6 +6,7 @@ import Register from './components/login/Register';
 import Steps from './components/StepsComponent';
 import Cart from './pages/Cart';
 import Home from './pages/Home';
+import OrderPlacedDetails from './pages/OrderPlacedDetails';
 import Payment from './pages/Payment';
 import ProductDetail from './pages/ProductDetail';
 import Profile from './pages/Profile';
@@ -26,6 +27,7 @@ function App() {
         <Route exact path='/profile' element={<Profile />} /> 
         <Route exact path='/shipping' element={<Steps />} /> 
         <Route exact path='/payment' element={<Payment />} /> 
+        <Route exact path='/order/:id' element={<OrderPlacedDetails />} /> 
       </Routes>
     </div>
   );

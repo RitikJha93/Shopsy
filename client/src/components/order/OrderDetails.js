@@ -47,7 +47,7 @@ const OrderDetails = () => {
                     </div>
                     <p className="font-semibold">
                       {item.quantity} X {item.price}$ ={" "}
-                      {item.quantity * item.price}$
+                      {(item.quantity * item.price).toFixed(2)}$
                     </p>
                   </div>
                   <hr className="my-2" />

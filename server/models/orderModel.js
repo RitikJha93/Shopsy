@@ -10,7 +10,7 @@ const orderSchema = mongoose.Schema(
     orderItems: [
       {
         name: { type: String, required: true },
-        qty: { type: Number, required: true },
+        quantity: { type: Number, required: true },
         image: { type: String, required: true },
         price: { type: Number, required: true },
         product: {
@@ -31,10 +31,10 @@ const orderSchema = mongoose.Schema(
       required: true,
     },
     paymentResults: {
-      id: { type: String, required: true },
-      status: { type: String, required: true },
-      update_time: { type: String, required: true },
-      email_address: { type: String, required: true },
+      id: { type: String },
+      status: { type: String },
+      update_time: { type: String },
+      email_address: { type: String },
     },
     taxPrice: {
       type: Number,
@@ -65,8 +65,8 @@ const orderSchema = mongoose.Schema(
       default: false,
     },
     deliveredAt: {
-        type:Date
-    }
+      type: Date,
+    },
   },
   { timestamps: true }
 );

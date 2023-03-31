@@ -10,7 +10,7 @@ const addOrder = async (req, res) => {
     shippingPrice,
     totalprice,
   } = req.body;
-
+  // console.log(req.body);
   if (!orderItems) {
     return res.status(400).json({ message: "No orders" });
   }
@@ -28,12 +28,25 @@ const addOrder = async (req, res) => {
     });
 
     const saveOrder = await newOrder.save();
-    res.json(201).json(saveOrder);
+    res.status(201).json(saveOrder);
   } catch (error) {
     res
       .status(400)
       .json({ message: "Could not place order, some error occurred" });
+    console.log(error);
   }
 };
 
-module.exports = {addOrder}
+const getOrderById = async (req, res) => {
+  const {id} = req.params
+
+  const order = await Order.findById(id).populate('user','name email');
+  if(order){
+    res.status(200).json(order);
+  }
+  else{
+    res.status(500).json({ message: "Could not find order"});
+  }
+}
+
+module.exports = {addOrder,getOrderById}

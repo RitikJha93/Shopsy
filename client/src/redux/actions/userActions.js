@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 export const userLoginRequest = (email, password) => async (dispatch) => {
   dispatch({ type: "USER_LOGIN_REQUEST" });
