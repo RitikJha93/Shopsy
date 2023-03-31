@@ -1,5 +1,6 @@
 import { Button, message, Steps, theme } from "antd";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Payment from "../pages/Payment";
 import Shipping from "../pages/Shipping";
 import Login from "./login/Login";
@@ -21,17 +22,30 @@ const steps = [
 
 const StepsComponent = () => {
   const { token } = theme.useToken();
-  const [current, setCurrent] = useState(0);
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userData } = userLogin;
+
+  const cart = useSelector((state) => state.cart);
+  const { shippingAddress } = cart;
+
+  const stepsData = useSelector((state) => state.stepsAction);
+  const { step } = stepsData;
+  console.log(step);
+
+  const dispatch = useDispatch();
+
   const next = () => {
-    setCurrent(current + 1);
+    dispatch({ type: "INCREASE_STEP" });
   };
   const prev = () => {
-    setCurrent(current - 1);
+    dispatch({ type: "DECREASE_STEP" });
   };
   const items = steps.map((item) => ({
     key: item.title,
     title: item.title,
   }));
+
   const contentStyle = {
     lineHeight: "260px",
     textAlign: "center",
@@ -41,15 +55,16 @@ const StepsComponent = () => {
     border: `1px dashed ${token.colorBorder}`,
     marginTop: 16,
   };
+
   return (
     <div className="mt-24 px-24">
-      <Steps current={current} items={items} />
+      <Steps current={step} items={items} />
       <div>
-        {steps[current].title === "Sign In" ? (
-          <Login></Login>
-        ) : steps[current].title === "Shipping" ? (
+        {steps[step].title === "Sign In" && userData ? (
+          dispatch({ type: "INCREASE_STEP" })
+        ) : steps[step].title === "Shipping" ? (
           <Shipping />
-        ) : steps[current].title === "Payment" ? (
+        ) : steps[step].title === "Payment" && shippingAddress ? (
           <Payment />
         ) : (
           <></>
@@ -60,12 +75,12 @@ const StepsComponent = () => {
           marginTop: 24,
         }}
       >
-        {current < steps.length - 1 && (
+        {/* {current < steps.length - 1 && (
           <Button className="bg-blue-500 text-white" onClick={() => next()}>
             Next
           </Button>
-        )}
-        {current === steps.length - 1 && (
+        )} */}
+        {step === steps.length - 1 && (
           <Button
             type="primary"
             onClick={() => message.success("Processing complete!")}
@@ -73,7 +88,7 @@ const StepsComponent = () => {
             Done
           </Button>
         )}
-        {current > 0 && (
+        {step > 0 && (
           <Button
             style={{
               margin: "0 8px",

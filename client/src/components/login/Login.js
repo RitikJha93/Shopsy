@@ -19,7 +19,7 @@ const Login = () => {
   const redirect = location.search ? location.search.split("=")[1] : "";
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, userData, error } = userLogin;
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
   const navigate = useNavigate();
 
   const handleLogin = () => {

@@ -13,9 +13,12 @@ const Shipping = () => {
   const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const stepsData = useSelector((state) => state.stepsAction)
+  const {step} = stepsData
   const handleSaveAddress = () => {
     dispatch(saveShippingAddress({ address, city, postalCode, country }));
-    navigate("/payment");
+    dispatch({type:'INCREASE_STEP'})
   };
   return (
     <div className="mt-24 md:px-24 sm:px-12 px-6 flex justify-center">
