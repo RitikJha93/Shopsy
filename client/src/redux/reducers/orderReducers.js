@@ -13,7 +13,7 @@ export const orderCreateReducer = (state = {}, action) => {
 
 export const orderDetailReducer = (
   state = { loading: true, orderItems: [], shippingAddress: {} },
-  action 
+  action
 ) => {
   switch (action.type) {
     case "ORDER_DETAILS_REQUEST":
@@ -22,6 +22,20 @@ export const orderDetailReducer = (
       return { loading: false, order: action.payload };
     case "ORDER_DETAILS_FAILURE":
       return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+export const orderPayReducer = (state = {}, action) => {
+  switch (action.type) {
+    case "ORDER_PAY_REQUEST":
+      return { loading: true };
+    case "ORDER_PAY_SUCCESS":
+      return { loading: false, success: true };
+    case "ORDER_PAY_FAILURE":
+      return { loading: false, error: action.payload };
+    case "ORDER_PAY_RESET":
+      return {};
     default:
       return state;
   }

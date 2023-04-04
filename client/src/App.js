@@ -27,7 +27,7 @@ function App() {
         <Route exact path='/profile' element={<Profile />} /> 
         <Route exact path='/shipping' element={<Steps />} /> 
         <Route exact path='/payment' element={<Payment />} /> 
-        <Route exact path='/order/:id' element={<OrderPlacedDetails />} /> 
+        <Route exact path='/order/:orderId' element={<OrderPlacedDetails />} /> 
       </Routes>
     </div>
   );

@@ -26,6 +26,7 @@ const OrderSummary = () => {
     Number(cart.shippingPrice) +
     Number(cart.taxPrice);
 
+    console.log(cart.totalPrice);
   const dispatch = useDispatch();
   const placeOrder = () => {
     dispatch(

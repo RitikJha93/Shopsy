@@ -8,7 +8,7 @@ const addOrder = async (req, res) => {
     itemsPrice,
     taxPrice,
     shippingPrice,
-    totalprice,
+    totalPrice,
   } = req.body;
   // console.log(req.body);
   if (!orderItems) {
@@ -24,7 +24,7 @@ const addOrder = async (req, res) => {
       itemsPrice,
       taxPrice,
       shippingPrice,
-      totalprice,
+      totalPrice,
     });
 
     const saveOrder = await newOrder.save();
@@ -38,15 +38,36 @@ const addOrder = async (req, res) => {
 };
 
 const getOrderById = async (req, res) => {
-  const {id} = req.params
+  const { id } = req.params
 
-  const order = await Order.findById(id).populate('user','name email');
-  if(order){
+  const order = await Order.findById(id).populate('user', 'name email');
+  if (order) {
     res.status(200).json(order);
   }
-  else{
-    res.status(500).json({ message: "Could not find order"});
+  else {
+    res.status(500).json({ message: "Could not find order" });
   }
 }
 
-module.exports = {addOrder,getOrderById}
+const updateOrderToPaid = async (req, res) => {
+  const order = await Order.findById(req.params.id)
+  if (!order) {
+    return res.status(404).json({ message: 'No orders found' })
+  }
+  try {
+    order.isPaid = true
+    order.isPaidAt = Date.now()
+    order.paymentResults = {
+      id: req.body.id,
+      status: req.body.status,
+      update_time: req.body.update_time,
+      email_address: req.body.payer.email_address
+    }
+
+    const updatedOrder = await order.save()
+    res.status(200).json(updatedOrder)
+  } catch (error) {
+    res.status(404).json({ message: 'No orders found' })
+  }
+}
+module.exports = { addOrder, getOrderById, updateOrderToPaid }

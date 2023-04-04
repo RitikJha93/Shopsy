@@ -53,3 +53,29 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
     console.log(error);
   }
 };
+export const payOrder = (orderId, paymentResult) => async (dispatch, getState) => {
+  dispatch({ type: "ORDER_PAY_REQUEST" });
+  const {
+    userLogin: { userData },
+  } = getState();
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userData.token}`,
+      },
+    };
+    const { data } = await axios.put(
+      `${process.env.REACT_APP_BACKEND_URL}/api/orders/${orderId}/pay`, paymentResult,
+      config
+    );
+    console.log(data);
+    dispatch({ type: "ORDER_PAY_SUCCESS", payload: data });
+  } catch (error) {
+    dispatch({
+      type: "ORDER_PAY_FAILURE",
+      payload: error?.response?.data.message,
+    });
+    console.log(error);
+  }
+};
