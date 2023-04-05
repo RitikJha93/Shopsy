@@ -1,17 +1,22 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useParams } from "react-router-dom"
 import { getOrderDetails } from "../redux/actions/orderActions"
 import Message from "../components/Message"
 import Loader from "../components/Loader"
 import { Alert } from "antd"
+import axios from "axios"
 
 const OrderPlacedDetails = () => {
 
+  const [sdkReady, setSdkReady] = useState(false)
   const { orderId } = useParams()
   const dispatch = useDispatch()
   const orderDetails = useSelector((state) => state.orderDetails)
   const { order, loading, error } = orderDetails
+
+  const orderPay = useSelector((state) => state.orderPay)
+  const { loading: loadingPay, success: successPay } = orderPay
 
   if (!loading) {
     order.itemsPrice = order?.orderItems
@@ -19,8 +24,31 @@ const OrderPlacedDetails = () => {
       .toFixed(2);
   }
   useEffect(() => {
-    dispatch(getOrderDetails(orderId))
-  }, [dispatch, orderId])
+
+    const addPaypalScript = async () => {
+
+      const { data: clientId } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/config/paypal`)
+      const script = document.createElement('script')
+      script.type = 'text/javascript'
+      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`
+      script.async = true
+      script.onLoad = () => {
+        setSdkReady(true)
+      }
+      document.body.appendChild(script)
+    }
+
+    if (!order || successPay) {
+      dispatch(getOrderDetails(orderId))
+    }
+    else if (!order.isPaid) {
+      if (!window.paypal) {
+        addPaypalScript()
+      } else {
+        setSdkReady(true)
+      }
+    }
+  }, [dispatch, orderId, order, successPay])
   return (
     <div className="mt-24 md:px-24 sm:px-12 px-6 grid grid-cols-3 gap-5">
       {loading ? <Loader /> : error ? <Message /> : <>
