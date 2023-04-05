@@ -70,4 +70,19 @@ const updateOrderToPaid = async (req, res) => {
     res.status(404).json({ message: 'No orders found' })
   }
 }
-module.exports = { addOrder, getOrderById, updateOrderToPaid }
+
+const getMyOrders = async (req, res) => {
+  const order = await Order.find({ user: req.user._id })
+  if (!order) {
+    return res.status(404).json({ message: 'No orders found' })
+  }
+  try {
+    res.status(200).json(order)
+
+  } catch (error) {
+    res.status(404).json({ message: 'No orders found' })
+
+  }
+}
+
+module.exports = { addOrder, getOrderById, updateOrderToPaid, getMyOrders }

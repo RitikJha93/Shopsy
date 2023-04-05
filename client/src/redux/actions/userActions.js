@@ -25,8 +25,10 @@ export const userLoginRequest = (email, password) => async (dispatch) => {
 };
 
 export const userLogout = () => (dispatch) => {
-  dispatch({ type: "USER_LOGOUT" });
   localStorage.removeItem("userData");
+  dispatch({ type: "USER_LOGOUT" });
+  dispatch({ type: "USER_DETAILS_RESET" });
+  dispatch({ type: "ORDER_LIST_MY_RESET" });
 };
 
 export const userRegisterRequest =

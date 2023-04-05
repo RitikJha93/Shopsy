@@ -15,7 +15,6 @@ const Login = () => {
 
   // console.log(document.location.search);
   const location = useLocation();
-  console.log(location);
   const redirect = location.search ? location.search.split("=")[1] : "";
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, userData, error } = userLogin;

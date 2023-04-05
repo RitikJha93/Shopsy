@@ -9,7 +9,7 @@ const Profile = () => {
           <h2 className="font-bold text-2xl">My Profile</h2>
           <MyProfile />
         </div>
-        <div>
+        <div className="col-span-2">
           <h2 className="font-bold text-2xl">My Orders</h2>
           <MyOrders />
         </div>

@@ -17,5 +17,8 @@ const getParticularProduct = async (req, res) => {
     res.status(404).json({'message':'Unable to find product'});
   }
 };
+const getProd = async (req, res) => {
+  res.send('hello')
+};
 
-module.exports = {getAllProducts,getParticularProduct};
+module.exports = {getAllProducts,getParticularProduct,getProd};

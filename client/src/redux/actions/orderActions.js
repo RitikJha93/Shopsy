@@ -79,3 +79,29 @@ export const payOrder = (orderId, paymentResult) => async (dispatch, getState) =
     console.log(error);
   }
 };
+
+export const getMyOrders = () => async (dispatch, getState) => {
+  dispatch({ type: "ORDER_LIST_MY_REQUEST" });
+  const {
+    userLogin: { userData },
+  } = getState();
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userData.token}`,
+      },
+    };
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/orders/order/myorders`,
+      config
+    );
+    console.log(data);
+    dispatch({ type: "ORDER_LIST_MY_SUCCESS", payload: data });
+  } catch (error) {
+    dispatch({
+      type: "ORDER_LIST_MY_FAILURE",
+      payload: error?.response?.data.message,
+    });
+    console.log(error);
+  }
+};
