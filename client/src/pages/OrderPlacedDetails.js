@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useParams } from "react-router-dom"
-import { getOrderDetails } from "../redux/actions/orderActions"
+import { getOrderDetails, payOrder } from "../redux/actions/orderActions"
 import Message from "../components/Message"
 import Loader from "../components/Loader"
 import { Alert } from "antd"
 import axios from "axios"
+import { PayPalButton } from "react-paypal-button-v2";
 
 const OrderPlacedDetails = () => {
 
@@ -39,6 +40,7 @@ const OrderPlacedDetails = () => {
     }
 
     if (!order || successPay) {
+      dispatch({type:'ORDER_PAY_RESET'})
       dispatch(getOrderDetails(orderId))
     }
     else if (!order.isPaid) {
@@ -49,6 +51,12 @@ const OrderPlacedDetails = () => {
       }
     }
   }, [dispatch, orderId, order, successPay])
+
+
+  const successPaymentHandler = (paymentResult) =>{
+    console.log(paymentResult);
+    dispatch(payOrder(orderId,paymentResult))
+  }
   return (
     <div className="mt-24 md:px-24 sm:px-12 px-6 grid grid-cols-3 gap-5">
       {loading ? <Loader /> : error ? <Message /> : <>
@@ -76,7 +84,7 @@ const OrderPlacedDetails = () => {
               <strong>Method : </strong> {order?.paymentMethod}
             </p>
             {
-              !order.isPaid && <Alert className="mt-4" message='Not Paid' type='error' showIcon />
+              !order.isPaid ? <Alert className="mt-4" message='Not Paid' type='error' showIcon /> :  <Alert className="mt-4" message={order.paidAt} type='success' showIcon />
             }
           </div>
           <hr className="my-4" />
@@ -135,6 +143,12 @@ const OrderPlacedDetails = () => {
               <p className="font-semibold text-lg">Total</p>
               <p className="font-semibold">{order?.totalPrice} $</p>
             </div>
+            {
+              !order.isPaid && <div>
+                {loadingPay && <Loader />}
+                {sdkReady ? <Loader /> : <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler}/>}
+              </div>
+            }
           </div>
         </div>
       </>}

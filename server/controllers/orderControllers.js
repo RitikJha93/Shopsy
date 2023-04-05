@@ -56,7 +56,7 @@ const updateOrderToPaid = async (req, res) => {
   }
   try {
     order.isPaid = true
-    order.isPaidAt = Date.now()
+    order.paidAt = Date.now()
     order.paymentResults = {
       id: req.body.id,
       status: req.body.status,
