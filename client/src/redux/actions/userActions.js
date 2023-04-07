@@ -113,4 +113,32 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
   }
 };
 
+export const getUserList = () => async (dispatch, getState) => {
+  dispatch({ type: "USER_LIST_REQUEST" });
+
+  const {
+    userLogin: { userData },
+  } = getState();
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userData.token}`,
+      },
+    };
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/users`,
+      config
+    );
+    console.log(data);
+    dispatch({ type: "USER_LIST_SUCCESS", payload: data });
+  } catch (error) {
+    dispatch({
+      type: "USER_LIST_FAILURE",
+      payload: error?.response?.data.message,
+    });
+    console.log(error);
+  }
+};
+
 
