@@ -2,9 +2,14 @@ import { FiUsers } from 'react-icons/fi'
 import { AiOutlineHome } from 'react-icons/ai'
 import { BsCartCheck } from 'react-icons/bs'
 import { FaTshirt } from 'react-icons/fa'
+import { GoDashboard } from 'react-icons/go'
 import { useSelector } from 'react-redux'
 const SideBarMenus = () => {
     const sideBarData = [
+        {
+            icon: <GoDashboard className='text-2xl' />,
+            name: 'Dashboard'
+        },
         {
             icon: <AiOutlineHome className='text-2xl' />,
             name: 'Home'
