@@ -41,7 +41,7 @@ const OrderPlacedDetails = () => {
 
     if (!order || successPay) {
       dispatch({type:'ORDER_PAY_RESET'})
-      dispatch(getOrderDetails(orderId))
+      
     }
     else if (!order.isPaid) {
       if (!window.paypal) {
@@ -52,6 +52,10 @@ const OrderPlacedDetails = () => {
     }
   }, [dispatch, orderId, order, successPay])
 
+  useEffect(() => {
+    dispatch(getOrderDetails(orderId))
+  }, [orderId])
+  
 
   const successPaymentHandler = (paymentResult) =>{
     console.log(paymentResult);
@@ -145,8 +149,8 @@ const OrderPlacedDetails = () => {
             </div>
             {
               !order.isPaid && <div>
-                {loadingPay && <Loader />}
-                {sdkReady ? <Loader /> : <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler}/>}
+                {/* {loadingPay && <Loader />} */}
+                <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler}/>
               </div>
             }
           </div>
