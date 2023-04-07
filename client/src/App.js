@@ -1,4 +1,4 @@
-import { Routes,Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header';
 import Login from './components/login/Login';
@@ -11,23 +11,35 @@ import Payment from './pages/Payment';
 import ProductDetail from './pages/ProductDetail';
 import Profile from './pages/Profile';
 import Shipping from './pages/Shipping';
+import Dashboard from './pages/Dashboard';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 
 console.log(process.env.REACT_APP_BACKEND_URL);
 function App() {
+
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userData } = userLogin
+
+  const {pathname} = useLocation()
+
   return (
     <div className="App">
-      <Header />
+      {
+        !pathname.includes('admin') && <Header />
+      }
       <Routes>
         <Route exact path='/' element={<Home />} />
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/register' element={<Register />} />
         <Route exact path='/product/:id' element={<ProductDetail />} />
-        <Route exact path='/cart/:id?' element={<Cart />} /> 
-        <Route exact path='/profile' element={<Profile />} /> 
-        <Route exact path='/shipping' element={<Steps />} /> 
-        <Route exact path='/payment' element={<Payment />} /> 
-        <Route exact path='/order/:orderId' element={<OrderPlacedDetails />} /> 
+        <Route exact path='/cart/:id?' element={<Cart />} />
+        <Route exact path='/profile' element={<Profile />} />
+        <Route exact path='/shipping' element={<Steps />} />
+        <Route exact path='/payment' element={<Payment />} />
+        <Route exact path='/order/:orderId' element={<OrderPlacedDetails />} />
+        <Route exact path='/admin/dashboard' element={<Dashboard />} />
       </Routes>
     </div>
   );

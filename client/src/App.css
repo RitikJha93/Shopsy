@@ -6,3 +6,6 @@
   box-sizing: border-box;
   font-family: 'Urbanist';
 }
+.rightbar{
+  width: calc(100vw - 250px);
+}

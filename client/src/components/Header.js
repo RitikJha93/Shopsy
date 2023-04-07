@@ -35,6 +35,14 @@ const Header = () => {
         <p onClick={logoutHandler}>Logout</p>
       ),
     },
+    userData?.isAdmin && {
+      key: '3',
+      label: (
+        <Link to={'/admin/dashboard'}>
+          <p>Dashboard</p>
+        </Link>
+      ),
+    }
   ];
   return (
     <div className="w-full h-[60px] shadow-md md:px-24 sm:px-12 px-6 z-[18] bg-white fixed top-0">
