@@ -1,4 +1,5 @@
 const Order = require("../models/orderModel");
+const User = require("../models/userModel");
 
 const addOrder = async (req, res) => {
   const {
@@ -85,4 +86,14 @@ const getMyOrders = async (req, res) => {
   }
 }
 
-module.exports = { addOrder, getOrderById, updateOrderToPaid, getMyOrders }
+
+const getAllUsers = async (req, res) => {
+  try {
+    const allUsers = await User.find({})
+    res.status(200).json(allUsers)
+  } catch (error) {
+    res.status(404).json({ message: 'No Users found' })
+
+  }
+}
+module.exports = { addOrder, getOrderById, updateOrderToPaid, getMyOrders,getAllUsers }

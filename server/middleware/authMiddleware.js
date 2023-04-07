@@ -14,11 +14,21 @@ const protect = async (req, res,next) => {
       next();
     }
     else{
-        return res.status(500).json({"message":"Not Authorized"})
+        return res.status(500).json({message:"Not Authorized"})
     }
   } catch (error) {
     return res.status(500).json({ message: "Not Authorized" });
   }
 };
 
-module.exports = protect;
+const admin = async (req, res,next) => {
+  console.log(req.user.isAdmin);
+  if(req.user && req.user.isAdmin){
+    next();
+    console.log('admin');
+  }
+  else{
+    return res.status(500).json({ message: "Not authorized as an Admin"});
+  }
+} 
+module.exports = {protect,admin};
