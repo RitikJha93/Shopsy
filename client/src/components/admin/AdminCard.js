@@ -29,7 +29,7 @@ const AdminCard = () => {
                 {
                     data.map((item, i) => {
                         return (
-                            <div className='bg-white relative h-[110px] cursor-pointer group flex justify-end p-4 rounded-lg'>
+                            <div className='bg-white relative h-[110px] shadow-md cursor-pointer group flex justify-end p-4 rounded-lg'>
                                 <div style={{backgroundColor:item.color}} className={`absolute transition duration-300 group-hover:-translate-y-3 p-2 rounded-lg top-[-10px] left-5`}>
                                     {item.icon}
                                 </div>
