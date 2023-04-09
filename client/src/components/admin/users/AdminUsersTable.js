@@ -98,12 +98,15 @@ const AdminUsersTable = () => {
 
     useEffect(() => {
         dispatch(getUserList())
-    }, [dispatch, successDelete,successEdit])
+    }, [dispatch, successDelete, successEdit])
 
     return (
         <div className='mt-8 '>
+
             {successEdit && <Alert type='success' className='mb-4' closable message={'User updated Successfully'} />}
             {successDelete && <Alert type='success' className='mb-4' closable message={'User Deleted Successfully'} />}
+            <h1 className='text-xl font-bold mb-4'>Users</h1>
+
             {
                 loading ? <Loader /> : error ? <Message type='error' message={error} /> : <Table columns={columns} dataSource={users} />}
             <Modal
