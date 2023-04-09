@@ -123,4 +123,34 @@ const deleteUser = async (req, res) => {
 
   }
 }
-module.exports = { authUser, registerUser, getProfile, updateUserProfile,deleteUser };
+const getUserById = async (req, res) => {
+  const user = await User.findById(req.params.id).select("-password")
+  try {
+    if (user) {
+      res.status(200).json(user)
+    }
+  } catch (error) {
+    res.status(500).json({ message: "User not found" });
+
+  }
+}
+
+const updateUser = async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = req.body.isAdmin
+
+    const updatedUser = await user.save();
+    res.status(201).json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      isAdmin: updatedUser.isAdmin,
+    });
+  } else {
+    res.status(500).json({ message: "user not found" });
+  }
+};
+module.exports = { authUser, registerUser, getProfile, updateUserProfile,deleteUser,getUserById,updateUser };

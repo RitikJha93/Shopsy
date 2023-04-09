@@ -47,8 +47,8 @@ const SideBarMenus = () => {
                 {
                     sideBarData.map((menus, i) => {
                         return (
-                            <Link to={menus.link}>
-                                <div key={i} className={`${pathname.includes(menus.name.toLowerCase()) && 'bg-blue-500 text-white'} flex ${!value && 'justify-center'} hover:bg-blue-500 hover:text-white cursor-pointer rounded-md transition duration-300 items-center px-2 py-2 my-2`}>
+                            <Link key={i} to={menus.link}>
+                                <div  className={`${pathname.includes(menus.name.toLowerCase()) && 'bg-blue-500 text-white'} flex ${!value && 'justify-center'} hover:bg-blue-500 hover:text-white cursor-pointer rounded-md transition duration-300 items-center px-2 py-2 my-2`}>
                                     {menus.icon}
                                     <p className={`ml-4 ${!value && 'hidden'} font-medium text-lg`}>{menus.name}</p>
                                 </div>

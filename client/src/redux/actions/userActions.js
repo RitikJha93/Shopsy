@@ -13,7 +13,6 @@ export const userLoginRequest = (email, password) => async (dispatch) => {
       { email, password },
       config
     );
-    console.log(data);
     dispatch({ type: "USER_LOGIN_SUCCESS", payload: data });
     localStorage.setItem("userData", JSON.stringify(data));
   } catch (error) {
@@ -46,7 +45,6 @@ export const userRegisterRequest =
         { name, email, password },
         config
       );
-      console.log(data);
       dispatch({ type: "USER_REGISTER_SUCCESS", payload: data });
       dispatch({ type: "USER_LOGIN_SUCCESS", payload: data });
       localStorage.setItem("userData", JSON.stringify(data));
@@ -55,7 +53,6 @@ export const userRegisterRequest =
         type: "USER_REGISTER_FAILURE",
         payload: error?.response?.data.message,
       });
-      console.log(error);
     }
   };
 export const getUserRequest = (id) => async (dispatch, getState) => {
@@ -75,14 +72,12 @@ export const getUserRequest = (id) => async (dispatch, getState) => {
       `${process.env.REACT_APP_BACKEND_URL}/api/users/${id}`,
       config
     );
-    console.log(data);
     dispatch({ type: "USER_DETAILS_SUCCESS", payload: data });
   } catch (error) {
     dispatch({
       type: "USER_DETAILS_FAILURE",
       payload: error?.response?.data.message,
     });
-    console.log(error);
   }
 };
 export const updateUserProfile = (user) => async (dispatch, getState) => {
@@ -103,14 +98,12 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
       user,
       config
     );
-    console.log(data);
     dispatch({ type: "USER_UPDATE_PROFILE_SUCCESS", payload: data });
   } catch (error) {
     dispatch({
       type: "USER_UPDATE_PROFILE_FAILURE",
       payload: error?.response?.data.message,
     });
-    console.log(error);
   }
 };
 
@@ -131,21 +124,18 @@ export const getUserList = () => async (dispatch, getState) => {
       `${process.env.REACT_APP_BACKEND_URL}/api/users`,
       config
     );
-    console.log(data);
     dispatch({ type: "USER_LIST_SUCCESS", payload: data });
   } catch (error) {
     dispatch({
       type: "USER_LIST_FAILURE",
       payload: error?.response?.data.message,
     });
-    console.log(error);
   }
 };
 
 export const userDeleteRequest = (id) => async (dispatch, getState) => {
   dispatch({ type: "USER_DELETE_REQUEST" });
 
-  console.log(id);
   const {
     userLogin: { userData },
   } = getState();
@@ -160,11 +150,38 @@ export const userDeleteRequest = (id) => async (dispatch, getState) => {
       `${process.env.REACT_APP_BACKEND_URL}/api/users/${id}`,
       config
     );
-    console.log(data);
     dispatch({ type: "USER_DELETE_SUCCESS", payload: data });
   } catch (error) {
     dispatch({
       type: "USER_DELETE_FAILURE",
+      payload: error?.response?.data.message,
+    });
+  }
+};
+
+export const userUpdateRequest = (user) => async (dispatch, getState) => {
+  dispatch({ type: "USER_UPDATE_REQUEST" });
+
+  const {
+    userLogin: { userData },
+  } = getState();
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userData.token}`,
+      },
+    };
+    const { data } = await axios.put(
+      `${process.env.REACT_APP_BACKEND_URL}/api/users/${user._id}`, user,
+      config
+    );
+    console.log(data);
+    dispatch({ type: "USER_UPDATE_SUCCESS" });
+    dispatch({ type: "USER_DETAILS_SUCCESS", payload: data });
+  } catch (error) {
+    dispatch({
+      type: "USER_UPDATE_FAILURE",
       payload: error?.response?.data.message,
     });
     console.log(error);
