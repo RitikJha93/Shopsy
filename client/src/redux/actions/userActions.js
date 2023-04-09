@@ -94,7 +94,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
       },
     };
     const { data } = await axios.put(
-      `${process.env.REACT_APP_BACKEND_URL}/api/users/profile`,
+      `${process.env.REACT_APP_BACKEND_URL}/api/users/profile/user`,
       user,
       config
     );
@@ -178,7 +178,6 @@ export const userUpdateRequest = (user) => async (dispatch, getState) => {
     );
     console.log(data);
     dispatch({ type: "USER_UPDATE_SUCCESS" });
-    dispatch({ type: "USER_DETAILS_SUCCESS", payload: data });
   } catch (error) {
     dispatch({
       type: "USER_UPDATE_FAILURE",

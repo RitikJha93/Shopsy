@@ -30,7 +30,7 @@ const MyProfile = () => {
       navigate("/login");
     } else {
       if (!user?.name) {
-        dispatch(getUserRequest("profile"));
+        dispatch(getUserRequest("profile/user"));
       } else {
         setName(user?.name);
         setEmail(user?.email);
