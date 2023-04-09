@@ -7,19 +7,34 @@ export const productListReducer = (state = { products: [] }, action) => {
     case "PRODUCT_LIST_FAILURE":
       return { loading: false, error: action.payload };
     default:
-        return state
+      return state
   }
 };
 
-export const productDeleteReducer = (state = {  }, action) => {
+export const productDeleteReducer = (state = {}, action) => {
   switch (action.type) {
     case "PRODUCT_DELETE_REQUEST":
-      return { loading: true};
+      return { loading: true };
     case "PRODUCT_DELETE_SUCCESS":
       return { loading: false, success: true };
     case "PRODUCT_DELETE_FAILURE":
       return { loading: false, error: action.payload };
     default:
-        return state
+      return state
+  }
+};
+
+export const productCreateReducer = (state = {}, action) => {
+  switch (action.type) {
+    case "PRODUCT_CREATE_REQUEST":
+      return { loading: true };
+    case "PRODUCT_CREATE_SUCCESS":
+      return { loading: false, success: true, product: action.payload };
+    case "PRODUCT_CREATE_FAILURE":
+      return { loading: false, error: action.payload };
+    case "PRODUCT_CREATE_RESET":
+      return {};
+    default:
+      return state
   }
 };

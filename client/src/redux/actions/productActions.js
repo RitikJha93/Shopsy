@@ -50,3 +50,30 @@ export const productDeleteRequest = (id) => async (dispatch, getState) => {
     });
   }
 };
+
+export const productCreateRequest = (product) => async (dispatch, getState) => {
+  dispatch({ type: "PRODUCT_CREATE_REQUEST" });
+
+  const {
+    userLogin: { userData },
+  } = getState();
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userData.token}`,
+      },
+    };
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_BACKEND_URL}/api/products`,product,
+      config
+    );
+    console.log(data);
+    dispatch({ type: "PRODUCT_CREATE_SUCCESS",payload:data });
+  } catch (error) {
+    dispatch({
+      type: "PRODUCT_CREATE_FAILURE",
+      payload: error?.response?.data.message,
+    });
+  }
+};
