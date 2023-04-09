@@ -29,6 +29,7 @@ export const userLogout = () => (dispatch) => {
   dispatch({ type: "USER_LOGOUT" });
   dispatch({ type: "USER_DETAILS_RESET" });
   dispatch({ type: "ORDER_LIST_MY_RESET" });
+  dispatch({ type: "USER_LIST_RESET" });
 };
 
 export const userRegisterRequest =
@@ -135,6 +136,35 @@ export const getUserList = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: "USER_LIST_FAILURE",
+      payload: error?.response?.data.message,
+    });
+    console.log(error);
+  }
+};
+
+export const userDeleteRequest = (id) => async (dispatch, getState) => {
+  dispatch({ type: "USER_DELETE_REQUEST" });
+
+  console.log(id);
+  const {
+    userLogin: { userData },
+  } = getState();
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userData.token}`,
+      },
+    };
+    const { data } = await axios.delete(
+      `${process.env.REACT_APP_BACKEND_URL}/api/users/${id}`,
+      config
+    );
+    console.log(data);
+    dispatch({ type: "USER_DELETE_SUCCESS", payload: data });
+  } catch (error) {
+    dispatch({
+      type: "USER_DELETE_FAILURE",
       payload: error?.response?.data.message,
     });
     console.log(error);

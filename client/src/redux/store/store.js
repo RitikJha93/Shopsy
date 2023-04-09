@@ -12,6 +12,7 @@ import { stepsReducer } from "../reducers/stepsReducers";
 import { myOrdersReducer, orderCreateReducer, orderDetailReducer, orderPayReducer } from "../reducers/orderReducers";
 import { userListReducer } from "../reducers/userListReducers";
 import { sidebarReducer } from "../reducers/SidebarReducer";
+import {userDeleteReducer} from "../reducers/userDeleteReducer";
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -27,7 +28,8 @@ const reducer = combineReducers({
   orderPay : orderPayReducer,
   myOrders : myOrdersReducer,
   userList:userListReducer,
-  sideBarToggle : sidebarReducer
+  sideBarToggle : sidebarReducer,
+  userDelete:userDeleteReducer
 });
 
 const cartItemsStorage = localStorage.getItem("cartItems")

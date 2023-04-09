@@ -1,7 +1,18 @@
+import { useEffect } from 'react'
 import { FaShoppingCart } from 'react-icons/fa'
 import { FaDollarSign } from 'react-icons/fa'
 import { HiUsers } from 'react-icons/hi'
+import { useDispatch, useSelector } from 'react-redux'
+import { getUserList } from '../../redux/actions/userActions'
 const AdminCard = () => {
+
+    const userList = useSelector((state) => state.userList)
+    const { loading, users, error } = userList
+
+    const dispatch = useDispatch()
+    useEffect(()=>{
+        dispatch(getUserList())
+    },[dispatch])
     const data = [
         {
             icon: <FaShoppingCart className='text-4xl text-white' />,
@@ -12,7 +23,7 @@ const AdminCard = () => {
         {
             icon: <HiUsers className='text-4xl text-white' />,
             title: 'Customers',
-            count: 120,
+            count: users?.length,
             color : '#FD7E14'
         },
         {

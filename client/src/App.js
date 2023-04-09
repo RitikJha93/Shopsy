@@ -40,8 +40,8 @@ function App() {
         <Route exact path='/shipping' element={<Steps />} />
         <Route exact path='/payment' element={<Payment />} />
         <Route exact path='/order/:orderId' element={<OrderPlacedDetails />} />
-        <Route exact path='/admin/dashboard' element={<Dashboard />} />
-        <Route exact path='/admin/users' element={<AdminUsersPage />} />
+        <Route exact path='/admin/dashboard' element={userData?.isAdmin ? <Dashboard /> : <Login />} />
+        <Route exact path='/admin/users' element={userData?.isAdmin ? <AdminUsersPage /> : <Login />} />
       </Routes>
     </div>
   );
