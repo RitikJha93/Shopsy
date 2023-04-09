@@ -24,3 +24,29 @@ export const listProductDetails = (id) => async (dispatch) => {
     });
   }
 };
+
+export const productDeleteRequest = (id) => async (dispatch, getState) => {
+  dispatch({ type: "PRODUCT_DELETE_REQUEST" });
+
+  const {
+    userLogin: { userData },
+  } = getState();
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userData.token}`,
+      },
+    };
+    const { data } = await axios.delete(
+      `${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`,
+      config
+    );
+    dispatch({ type: "PRODUCT_DELETE_SUCCESS" });
+  } catch (error) {
+    dispatch({
+      type: "PRODUCT_DELETE_FAILURE",
+      payload: error?.response?.data.message,
+    });
+  }
+};

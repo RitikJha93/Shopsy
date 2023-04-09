@@ -17,8 +17,15 @@ const getParticularProduct = async (req, res) => {
     res.status(404).json({'message':'Unable to find product'});
   }
 };
-const getProd = async (req, res) => {
-  res.send('hello')
+
+const deleteProduct = async (req, res) => {
+  try {
+    const product = await Product.findByIdAndDelete(req.params.id);
+    res.status(200).json({message:'Product deleted successfully'})
+  } catch (error) {
+    res.status(404).json({message:'Unable to find product'});
+  }
 };
 
-module.exports = {getAllProducts,getParticularProduct,getProd};
+
+module.exports = {getAllProducts,getParticularProduct,deleteProduct};

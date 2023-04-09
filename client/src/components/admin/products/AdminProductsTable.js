@@ -7,7 +7,7 @@ import Loader from '../../Loader'
 import { FiEdit } from 'react-icons/fi'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { Link } from 'react-router-dom';
-import { listProducts } from '../../../redux/actions/productActions';
+import { listProducts, productDeleteRequest } from '../../../redux/actions/productActions';
 const AdminProductsTable = () => {
 
     const [deleteModal, setDeleteModal] = useState(false)
@@ -17,6 +17,9 @@ const AdminProductsTable = () => {
     const productList = useSelector((state) => state.productList)
     const { loading, products, error } = productList
 
+    const productDelete = useSelector((state) => state.productDelete)
+    const { loading: deleteLoading, success: deleteSuccess, error: deleteError } = productDelete
+
     const dispatch = useDispatch()
     const openDeleteConfirm = (id) => {
         setDeleteModal(true)
@@ -24,7 +27,7 @@ const AdminProductsTable = () => {
     }
 
     const deleteHandle = () => {
-        dispatch(userDeleteRequest(deleteId))
+        dispatch(productDeleteRequest(deleteId))
         setDeleteModal(false)
     }
 
@@ -83,9 +86,11 @@ const AdminProductsTable = () => {
 
     useEffect(() => {
         dispatch(listProducts())
-    }, [dispatch])
+    }, [dispatch, deleteSuccess])
     return (
         <div className='mt-8 '>
+            {deleteSuccess && <Alert type='success' className='mb-4' closable message={'Product Deleted Successfully'} />}
+
             <h1 className='text-xl font-bold mb-4'>Products</h1>
             {
                 loading ? <Loader /> : error ? <Message type='error' message={error} /> : <Table columns={columns} dataSource={products} />}
