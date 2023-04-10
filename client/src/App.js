@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import AdminUsersPage from './pages/AdminUsersPage';
 import AdminProductsPage from './pages/AdminProductsPage';
+import AdminOrdersPage from './pages/AdminOrdersPage';
 
 
 console.log(process.env.REACT_APP_BACKEND_URL);
@@ -44,6 +45,7 @@ function App() {
         <Route exact path='/admin/dashboard' element={userData?.isAdmin ? <Dashboard /> : <Login />} />
         <Route exact path='/admin/users' element={userData?.isAdmin ? <AdminUsersPage /> : <Login />} />
         <Route exact path='/admin/products' element={userData?.isAdmin ? <AdminProductsPage /> : <Login />} />
+        <Route exact path='/admin/orders' element={userData?.isAdmin ? <AdminOrdersPage /> : <Login />} />
       </Routes>
     </div>
   );

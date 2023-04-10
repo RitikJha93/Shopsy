@@ -85,15 +85,20 @@ const getMyOrders = async (req, res) => {
 
   }
 }
-
-
-const getAllUsers = async (req, res) => {
+const getAllOrders = async (req, res) => {
+  const order = await Order.find({ }).populate('user','id name')
+  if (!order) {
+    return res.status(404).json({ message: 'No orders found' })
+  }
   try {
-    const allUsers = await User.find({})
-    res.status(200).json(allUsers)
+    res.status(200).json(order)
+
   } catch (error) {
-    res.status(404).json({ message: 'No Users found' })
+    res.status(404).json({ message: 'No orders found' })
 
   }
 }
-module.exports = { addOrder, getOrderById, updateOrderToPaid, getMyOrders,getAllUsers }
+
+
+
+module.exports = { addOrder, getOrderById, updateOrderToPaid, getMyOrders,getAllOrders }

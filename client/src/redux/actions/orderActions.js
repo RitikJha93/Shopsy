@@ -105,3 +105,29 @@ export const getMyOrders = () => async (dispatch, getState) => {
     console.log(error);
   }
 };
+
+export const getAllOrders = () => async (dispatch, getState) => {
+  dispatch({ type: "ORDER_LIST__REQUEST" });
+  const {
+    userLogin: { userData },
+  } = getState();
+  try {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userData.token}`,
+      },
+    };
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_BACKEND_URL}/api/orders`,
+      config
+    );
+    console.log(data);
+    dispatch({ type: "ORDER_LIST__SUCCESS", payload: data });
+  } catch (error) {
+    dispatch({
+      type: "ORDER_LIST__FAILURE",
+      payload: error?.response?.data.message,
+    });
+    console.log(error);
+  }
+};

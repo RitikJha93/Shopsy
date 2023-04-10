@@ -6,9 +6,9 @@ const {
   updateUserProfile,
   getUserById,
   updateUser,
+  getAllUsers
 } = require("../controllers/userController");
 const { protect, admin } = require("../middleware/authMiddleware");
-const { getAllUsers } = require("../controllers/orderControllers");
 const router = express.Router();
 
 router.post("/login", authUser);

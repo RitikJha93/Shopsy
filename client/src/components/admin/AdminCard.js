@@ -9,6 +9,9 @@ const AdminCard = () => {
     const userList = useSelector((state) => state.userList)
     const { loading, users, error } = userList
 
+    const orderList = useSelector((state) => state.orderList)
+    const {  orders } = orderList
+
     const dispatch = useDispatch()
     useEffect(()=>{
         dispatch(getUserList())
@@ -17,7 +20,7 @@ const AdminCard = () => {
         {
             icon: <FaShoppingCart className='text-4xl text-white' />,
             title: 'Total Orders',
-            count: 69,
+            count: orders?.length,
             color : '#6F42C1'
         },
         {

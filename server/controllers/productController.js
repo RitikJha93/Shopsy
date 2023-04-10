@@ -36,7 +36,7 @@ const createProduct = async (req, res) => {
   }
   console.log(cloudinaryImage);
   try {
-    const product = new Product({ name, price, user:req.user._id, image: cloudinaryImage, brand, category, countInStock, numReviews, description })
+    const product = new Product({ name, price, user: req.user._id, image: cloudinaryImage, brand, category, countInStock, numReviews, description })
     const createdProduct = await product.save()
     res.status(200).json(createdProduct)
   } catch (error) {
@@ -47,17 +47,21 @@ const createProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   const { name, price, image, brand, category, countInStock, description } = req.body;
+  const product = await Product.findById(req.params.id)
+  console.log(typeof (image), product.image);
   let cloudinaryImage;
-  if (image) {
-    cloudinaryImage = uploadImage(image)
+  if (image == product.image) {
+    console.log('same');
+  } else {
+    cloudinaryImage = await uploadImage(image)
+    console.log('new');
   }
 
-  const product = await Product.findById(req.params.id)
-  if(!product) {
-    return res.status(404).json({ message: 'Product not found'})
+  if (!product) {
+    return res.status(404).json({ message: 'Product not found' })
   }
   try {
-    
+
     product.name = name || product.name
     product.price = price || product.price
     product.image = cloudinaryImage || product.image
@@ -71,8 +75,9 @@ const updateProduct = async (req, res) => {
     res.status(200).json(updatedProduct)
   } catch (error) {
     res.status(404).json({ message: 'Unable to find product' });
+    console.log(error);
   }
 };
 
 
-module.exports = { getAllProducts, getParticularProduct, deleteProduct, createProduct ,updateProduct};
+module.exports = { getAllProducts, getParticularProduct, deleteProduct, createProduct, updateProduct };

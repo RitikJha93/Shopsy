@@ -72,6 +72,15 @@ const registerUser = async (req, res) => {
   }
 };
 
+const getAllUsers = async (req, res) => {
+  try {
+    const allUsers = await User.find({})
+    res.status(200).json(allUsers)
+  } catch (error) {
+    res.status(404).json({ message: 'No Users found' })
+
+  }
+}
 const getProfile = async (req, res) => {
   const user = await User.findById(req.user._id);
   try {
@@ -153,4 +162,4 @@ const updateUser = async (req, res) => {
     res.status(500).json({ message: "user not found" });
   }
 };
-module.exports = { authUser, registerUser, getProfile, updateUserProfile,deleteUser,getUserById,updateUser };
+module.exports = { authUser, registerUser, getProfile, updateUserProfile,deleteUser,getUserById,updateUser,getAllUsers };

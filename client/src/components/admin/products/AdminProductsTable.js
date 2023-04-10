@@ -10,7 +10,7 @@ import { AiOutlinePlus } from 'react-icons/ai'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { AiFillFileAdd } from 'react-icons/ai'
 import { Link } from 'react-router-dom';
-import { listProductDetails, listProducts, productCreateRequest, productDeleteRequest } from '../../../redux/actions/productActions';
+import { listProductDetails, listProducts, productCreateRequest, productDeleteRequest, productUpdateRequest } from '../../../redux/actions/productActions';
 import InputField from './InputField';
 const AdminProductsTable = () => {
 
@@ -34,7 +34,7 @@ const AdminProductsTable = () => {
         fileReader.readAsDataURL(file);
 
         fileReader.onload = () => {
-            setImg(fileReader.result)
+            setEditImageUrl(fileReader.result)
         };
         fileReader.onerror = (error) => {
             console.log(error);
@@ -54,6 +54,8 @@ const AdminProductsTable = () => {
 
     const productCreate = useSelector((state) => state.productCreate)
     const { loading: createLoading, success: createSuccess, error: createError } = productCreate
+    const productUpdate = useSelector((state) => state.productUpdate)
+    const { loading: updateLoading, success: updateSuccess, error: updateError } = productUpdate
 
     const dispatch = useDispatch()
     const openDeleteConfirm = (id) => {
@@ -73,6 +75,7 @@ const AdminProductsTable = () => {
 
     const editProductHandle = () => {
         setEditModal(false)
+        dispatch(productUpdateRequest({ _id: product._id, name: editProductFields.name, price: editProductFields.price, brand: editProductFields.brand, image: editImageUrl, category: editProductFields.category, countInStock: editProductFields.countInStock, numReviews: editProductFields.numReviews, description: editProductFields.description }))
     }
 
     const openCreateModal = () => {
@@ -158,12 +161,16 @@ const AdminProductsTable = () => {
 
     useEffect(() => {
         dispatch(listProducts())
-    }, [dispatch, deleteSuccess, createSuccess])
+        if(createSuccess){
+            dispatch({type:'PRODUCT_UPDATE_RESET'})
+        }
+    }, [dispatch, deleteSuccess, createSuccess, updateSuccess])
     return (
         <div className='mt-8 '>
             {deleteSuccess && <Alert type='success' className='mb-4' closable message={'Product Deleted Successfully'} />}
             {createSuccess && <Alert type='success' className='mb-4' closable message={'Product Added Successfully'} />}
-            {createError &&  <Alert type='error' className='mb-4' closable message={createError} />}
+            {updateSuccess && <Alert type='success' className='mb-4' closable message={'Product Updated Successfully'} />}
+            {createError && <Alert type='error' className='mb-4' closable message={createError} />}
             <div className='flex justify-between items-center mb-4'>
                 <h1 className='text-xl font-bold '>Products</h1>
                 <button onClick={openCreateModal} className='bg-blue-500 text-white py-2 px-3 rounded-md hover:bg-blue-600'><AiOutlinePlus className='inline-flex mr-2' />Create Product</button>
@@ -266,6 +273,38 @@ const AdminProductsTable = () => {
                             )
                         })
                     }
+                    <div className="flex items-center justify-around w-full mt-2">
+                        <div
+                            id="dropzone"
+                            className="border border-dashed  lg:mt-0 mt-3 sm:w-[300] w-[300px] h-[200px] relative flex justify-center items-center"
+                        >
+                            {file || editImageUrl ? (
+                                <div className="relative w-full">
+                                    <img
+                                        className="sm:w-[400px] w-[300px] h-[200px] object-contain"
+                                        src={editImageUrl || URL.createObjectURL(file)}
+                                        alt=""
+                                    />
+                                    <AiFillCloseCircle
+                                        onClick={() => {
+                                            setFile(null)
+                                            setEditImageUrl()
+                                        }}
+                                        className="absolute top-2 right-2 text-2xl text-gray-700"
+                                    />
+                                </div>
+                            ) : (
+                                <span className="">Select picture to see the preview</span>
+                            )}
+                        </div>
+                        <input type="file" id="fileInput" onChange={handleUpload} hidden />
+                        <button className="bg-blue-500 mt-3 w-[150px] ] flex items-center text-white rounded-lg py-2 px-4 ">
+                            <label htmlFor="fileInput" className="w-[150px] cursor-pointer">
+                                <AiFillFileAdd className="w-[25px] mr-2 inline-flex h-[25px] text-center object-cover ml-2 cursor-pointer" />
+                                <span>Add Pic</span>
+                            </label>
+                        </button>
+                    </div>
                 </div>
             </Modal>
         </div>
