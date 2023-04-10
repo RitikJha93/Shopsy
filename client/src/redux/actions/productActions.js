@@ -13,6 +13,7 @@ export const listProducts = () => async (dispatch) => {
 };
 
 export const listProductDetails = (id) => async (dispatch) => {
+  console.log(id);
   try {
     dispatch({ type: "PRODUCT_DETAILS_REQUEST" });
     const { data } = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`);

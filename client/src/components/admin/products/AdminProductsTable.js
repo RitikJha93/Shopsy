@@ -10,18 +10,24 @@ import { AiOutlinePlus } from 'react-icons/ai'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { AiFillFileAdd } from 'react-icons/ai'
 import { Link } from 'react-router-dom';
-import { listProducts, productCreateRequest, productDeleteRequest } from '../../../redux/actions/productActions';
+import { listProductDetails, listProducts, productCreateRequest, productDeleteRequest } from '../../../redux/actions/productActions';
 import InputField from './InputField';
 const AdminProductsTable = () => {
 
+    const productDetails = useSelector((state) => state.productDetails)
+    const { product } = productDetails
     const [deleteModal, setDeleteModal] = useState(false)
     const [editModal, setEditModal] = useState(false)
     const [createModal, setCreateModal] = useState(false)
     const [deleteId, setDeleteId] = useState()
     const [file, setFile] = useState(null);
     const [img, setImg] = useState()
+    const [editImageUrl, setEditImageUrl] = useState()
     const [createProductFields, setCreateProductFields] = useState({
         name: '', price: null, brand: '', category: '', countInStock: null, numReviews: null, description: ''
+    })
+    const [editProductFields, setEditProductFields] = useState({
+        name: product?.name, price: product?.price, brand: product?.brand, category: product?.category, countInStock: product?.countInStock, numReviews: product?.numReviews, description: product?.description
     })
     const convertbase64 = async (file) => {
         const fileReader = new FileReader();
@@ -62,9 +68,10 @@ const AdminProductsTable = () => {
 
     const openEditModal = (id) => {
         setEditModal(true)
+        dispatch(listProductDetails(id))
     }
 
-    const editUserHandle = () => {
+    const editProductHandle = () => {
         setEditModal(false)
     }
 
@@ -83,13 +90,24 @@ const AdminProductsTable = () => {
 
     const handleChange = (e) => {
         setCreateProductFields({ ...createProductFields, [e.target.name]: e.target.value })
+        console.log(createProductFields);
+    }
+
+    const handleEditChange = (e) => {
+        setEditProductFields({ ...editProductFields, [e.target.name]: e.target.value })
     }
     const columns = [
         {
             title: 'ID',
             dataIndex: '_id',
             key: '_id',
-            render: (_id) => <p className='text-base'>{_id}</p>
+            render: (_id) => <Link to={`/product/${_id}`}>{_id}</Link>
+        },
+        {
+            title: 'Image',
+            dataIndex: 'image',
+            key: 'image',
+            render: (img) => <img className='w-[70px] h-[45px] object-cover rounded-md' src={img} />
         },
         {
             title: 'Name',
@@ -130,13 +148,22 @@ const AdminProductsTable = () => {
     ];
 
     useEffect(() => {
+        if (product) {
+            setEditProductFields({
+                name: product.name, price: product.price, brand: product.brand, category: product.category, countInStock: product.countInStock, numReviews: product.numReviews, description: product.description
+            })
+            setEditImageUrl(product.image)
+        }
+    }, [product])
+
+    useEffect(() => {
         dispatch(listProducts())
     }, [dispatch, deleteSuccess, createSuccess])
     return (
         <div className='mt-8 '>
             {deleteSuccess && <Alert type='success' className='mb-4' closable message={'Product Deleted Successfully'} />}
             {createSuccess && <Alert type='success' className='mb-4' closable message={'Product Added Successfully'} />}
-
+            {createError &&  <Alert type='error' className='mb-4' closable message={createError} />}
             <div className='flex justify-between items-center mb-4'>
                 <h1 className='text-xl font-bold '>Products</h1>
                 <button onClick={openCreateModal} className='bg-blue-500 text-white py-2 px-3 rounded-md hover:bg-blue-600'><AiOutlinePlus className='inline-flex mr-2' />Create Product</button>
@@ -217,13 +244,29 @@ const AdminProductsTable = () => {
                 title="Edit Product Details"
                 centered
                 open={editModal}
-                onOk={editUserHandle}
+                onOk={editProductHandle}
                 onCancel={() => setEditModal(false)}
                 okText='Update'
                 okButtonProps={{
                     style: { backgroundColor: '#3B82F6' }
                 }}
             >
+                <div className='w-full'>
+                    {
+                        Object.keys(editProductFields).map((product, i) => {
+                            return (
+                                <InputField
+                                    key={i}
+                                    placeholder={product}
+                                    name={product}
+                                    onChange={handleEditChange}
+                                    value={editProductFields[product]}
+                                    edit
+                                />
+                            )
+                        })
+                    }
+                </div>
             </Modal>
         </div>
     )

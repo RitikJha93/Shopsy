@@ -40,7 +40,7 @@ const createProduct = async (req, res) => {
     const createdProduct = await product.save()
     res.status(200).json(createdProduct)
   } catch (error) {
-    res.status(404).json({ message: 'Unable to find product' });
+    res.status(404).json({ message: 'Unable to create product' });
     console.log(error);
   }
 };
