@@ -83,7 +83,7 @@ const AdminProductsTable = () => {
     }
 
     const createProductHandle = () => {
-        dispatch(productCreateRequest({ name: createProductFields.name, price: createProductFields.price, brand: createProductFields.brand, image: img, category: createProductFields.category, countInStock: createProductFields.countInStock, numReviews: createProductFields.numReviews, description: createProductFields.description }))
+        dispatch(productCreateRequest({ name: createProductFields.name, price: createProductFields.price, brand: createProductFields.brand, image: editImageUrl, category: createProductFields.category, countInStock: createProductFields.countInStock, numReviews: createProductFields.numReviews, description: createProductFields.description }))
         setCreateModal(false)
         setCreateProductFields({
             name: '', price: null, brand: '', category: '', countInStock: null, numReviews: null, description: ''
@@ -161,8 +161,11 @@ const AdminProductsTable = () => {
 
     useEffect(() => {
         dispatch(listProducts())
-        if(createSuccess){
+        if(updateSuccess && products){
             dispatch({type:'PRODUCT_UPDATE_RESET'})
+        }
+        if(createSuccess && products){
+            dispatch({type:'PRODUCT_CREATE_RESET'})
         }
     }, [dispatch, deleteSuccess, createSuccess, updateSuccess])
     return (

@@ -30,6 +30,7 @@ const deleteProduct = async (req, res) => {
 
 const createProduct = async (req, res) => {
   const { name, price, image, brand, category, countInStock, numReviews, description } = req.body;
+  console.log(image);
   let cloudinaryImage;
   if (image) {
     cloudinaryImage = await uploadImage(image)

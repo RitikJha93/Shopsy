@@ -58,7 +58,7 @@ const AdminOrdersTable = () => {
             title: 'Details',
             key: '_id',
             dataIndex: '_id',
-            render: (id) => <Link to={`/order/${id}`} className='text-base'><button className="border border-blue-500 px-3 py-[6px] rounded-md hover:border-none hover:bg-blue-500 hover:text-white">Details</button></Link>
+            render: (id) => <Link to={`/order/${id}`} className='text-base'><button className="border transition-all border-blue-500 px-3 py-[6px] rounded-md hover:bg-blue-500 hover:text-white">Details</button></Link>
         },
     ];
     return (

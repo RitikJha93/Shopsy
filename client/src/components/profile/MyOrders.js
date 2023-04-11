@@ -27,7 +27,7 @@ const MyOrders = () => {
                     {order.orderItems.map((orderItem) => {
                       return (
                         <div>
-                          <img className="max-w-[120px] rounded-md" src={orderItem.image} alt="" />
+                          <img className="max-w-[100px] rounded-md" src={orderItem.image} alt="" />
                           <p className="mt-4 max-w-[160px]">{orderItem.name}</p>
 
                         </div>
