@@ -3,8 +3,6 @@ import Rating from "../home/Rating";
 import { productCreateReview } from "../../redux/actions/productActions";
 import { useState } from "react";
 import { Alert, Select } from "antd";
-import Message from "../Message";
-import { Link } from "react-router-dom";
 
 const Reviews = ({ selectedProduct }) => {
 

@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 import AdminUsersPage from './pages/AdminUsersPage';
 import AdminProductsPage from './pages/AdminProductsPage';
 import AdminOrdersPage from './pages/AdminOrdersPage';
+import About from './pages/About';
 
 
 console.log(process.env.REACT_APP_BACKEND_URL);
@@ -27,6 +28,7 @@ function App() {
 
   const {pathname} = useLocation()
 
+  console.log(pathname.split('/')[2]);
   return (
     <div className="App">
       {
@@ -34,6 +36,8 @@ function App() {
       }
       <Routes>
         <Route exact path='/' element={<Home />} />
+        <Route exact path='/search/:keyword' element={<Home />} />
+        <Route exact path='/about' element={<About />} />
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/register' element={<Register />} />
         <Route exact path='/product/:id' element={<ProductDetail />} />

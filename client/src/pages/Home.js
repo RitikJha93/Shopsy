@@ -5,14 +5,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../redux/actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
+import { useLocation, useParams } from "react-router-dom";
 
 const Home = () => {
   const productList = useSelector((state) => state.productList);
   const { products, error, loading } = productList;
+
+  const {keyword} = useParams()
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(listProducts(keyword));
+  }, [dispatch,keyword]);
   return (
     <div>
       {loading ? (

@@ -2,8 +2,11 @@ const Product = require("../models/productModel");
 const uploadImage = require("../utils/uploadImage");
 
 const getAllProducts = async (req, res) => {
+  const keyword = req.query.keyword ? { 
+    name: { $regex:req.query.keyword,$options : 'i' } 
+  } : {}
   try {
-    const products = await Product.find({});
+    const products = await Product.find({...keyword});
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({ 'message': 'Something went wrong' });
@@ -80,33 +83,33 @@ const updateProduct = async (req, res) => {
   }
 };
 
-const createProductReview = async(req,res)=>{
-  const {rating,comment} = req.body
+const createProductReview = async (req, res) => {
+  const { rating, comment } = req.body
   const product = await Product.findById(req.params.id)
 
-  if(product){
-    const alreadyReviewed = product.reviews.find((r)=>r.user.toString() === req.user._id.toString())
-    if(alreadyReviewed){
-      return res.status(400).json({ message: 'Review already added'})
+  if (product) {
+    const alreadyReviewed = product.reviews.find((r) => r.user.toString() === req.user._id.toString())
+    if (alreadyReviewed) {
+      return res.status(400).json({ message: 'Review already added' })
     }
 
     const review = {
-      name : req.user.name,
-      rating : Number(rating),
+      name: req.user.name,
+      rating: Number(rating),
       comment,
-      user:req.user._id
+      user: req.user._id
     }
 
     product.reviews.push(review)
     product.numReviews = product.reviews.length
 
-    product.rating = product.reviews.reduce((acc,item) => acc + item.rating , 0)/product.reviews.length
+    product.rating = product.reviews.reduce((acc, item) => acc + item.rating, 0) / product.reviews.length
 
     await product.save()
-    res.status(201).json({message:'Review Added'})
-  }else{
-    res.status(400).json({ message: 'Product Not found'})
+    res.status(201).json({ message: 'Review Added' })
+  } else {
+    res.status(400).json({ message: 'Product Not found' })
 
   }
 }
-module.exports = { getAllProducts, getParticularProduct, deleteProduct, createProduct, updateProduct,createProductReview };
+module.exports = { getAllProducts, getParticularProduct, deleteProduct, createProduct, updateProduct, createProductReview };
