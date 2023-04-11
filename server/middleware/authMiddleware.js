@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
-const protect = async (req, res,next) => {
+const protect = async (req, res, next) => {
   let token;
   try {
     if (
@@ -13,20 +13,21 @@ const protect = async (req, res,next) => {
       req.user = await User.findById(decoded.id).select("-password");
       next();
     }
-    else{
-        return res.status(500).json({message:"Not Authorized"})
+    else {
+      return res.status(500).json({ message: "Not Authorized" })
     }
   } catch (error) {
+    console.log(error);
     return res.status(500).json({ message: "Not Authorized" });
   }
 };
 
-const admin = async (req, res,next) => {
-  if(req.user && req.user.isAdmin){
+const admin = async (req, res, next) => {
+  if (req.user && req.user.isAdmin) {
     next();
   }
-  else{
-    return res.status(500).json({ message: "Not authorized as an Admin"});
+  else {
+    return res.status(500).json({ message: "Not authorized as an Admin" });
   }
-} 
-module.exports = {protect,admin};
+}
+module.exports = { protect, admin };

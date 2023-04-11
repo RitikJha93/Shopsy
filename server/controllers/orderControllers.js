@@ -72,6 +72,26 @@ const updateOrderToPaid = async (req, res) => {
   }
 }
 
+const updateOrderToDelivered = async (req, res) => {
+  const order = await Order.findById(req.params.id)
+  if (!order) {
+    return res.status(404).json({ message: 'No orders found' })
+  }
+  try {
+    order.isDelivered = true
+    if(!order.isPaid){
+      order.isPaid = true
+      order.paidAt = Date.now()
+    }
+    order.deliveredAt = Date.now()
+
+    const updatedOrder = await order.save()
+    res.status(200).json(updatedOrder)
+  } catch (error) {
+    res.status(404).json({ message: 'No orders found' })
+  }
+}
+
 const getMyOrders = async (req, res) => {
   const order = await Order.find({ user: req.user._id })
   if (!order) {
@@ -101,4 +121,4 @@ const getAllOrders = async (req, res) => {
 
 
 
-module.exports = { addOrder, getOrderById, updateOrderToPaid, getMyOrders,getAllOrders }
+module.exports = { addOrder, getOrderById, updateOrderToPaid, getMyOrders,getAllOrders,updateOrderToDelivered }

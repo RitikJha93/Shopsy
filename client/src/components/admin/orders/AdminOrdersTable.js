@@ -1,21 +1,27 @@
 import { useDispatch, useSelector } from "react-redux"
-import { getAllOrders } from "../../../redux/actions/orderActions"
-import { useEffect } from "react"
+import { deliverOrder, getAllOrders } from "../../../redux/actions/orderActions"
+import { useEffect, useState } from "react"
 import Message from "../../Message"
 import Loader from "../../Loader"
-import { Table, Tag } from "antd"
+import { Select, Table, Tag } from "antd"
 import { Link } from "react-router-dom"
 
 const AdminOrdersTable = () => {
 
     const orderList = useSelector((state) => state.orderList)
     const { loading, error, orders } = orderList
+    const orderDeliver = useSelector((state) => state.orderDeliver)
+    const { loading: deliverLoading, error: deliverError, success: deliverSuccess } = orderDeliver
 
+    const [deliveredStatus, setDeliveredStatus] = useState('Not Delivered')
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getAllOrders())
-    }, [dispatch])
+    }, [dispatch, deliverSuccess])
 
+    const handleDeliver = (value) => {
+        dispatch(deliverOrder(value))
+    }
     const columns = [
         {
             title: 'ID',
@@ -34,7 +40,7 @@ const AdminOrdersTable = () => {
             title: 'Date',
             dataIndex: 'createdAt',
             key: 'createdAt',
-            render: (date) => <p className='text-base'>{date?.substr(0,10)}</p>
+            render: (date) => <p className='text-base'>{date?.substr(0, 10)}</p>
         },
         {
             title: 'Total',
@@ -43,16 +49,30 @@ const AdminOrdersTable = () => {
             render: (totalPrice) => <p className='text-base font-semibold'>{totalPrice}$</p>
         },
         {
-            title: 'Paid',
-            key: 'paidAt',
-            dataIndex: 'paidAt',
-            render: (paidAt) => <p className='text-base'>{paidAt?.substr(0,10)}</p>
+            title: 'Payment Method',
+            key: 'paymentMethod',
+            dataIndex: 'paymentMethod',
+            render: (paymentMethod) => <p className='text-base'>{paymentMethod}</p>
         },
         {
-            title: 'Delivered',
+            title: 'Status',
             key: 'isDelivered',
             dataIndex: 'isDelivered',
             render: (isDelivered) => isDelivered ? <Tag color="success">Delivered</Tag> : <Tag color="warning">Not Delivered</Tag>
+        },
+        {
+            title: 'Delivered',
+            key: '_id',
+            dataIndex: '_id',
+            render: (_id) => orders.map((order) =>{
+                if(order._id === _id) {
+                    if(order.isDelivered){
+                        return <button className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded-md cursor-not-allowed">Mark as Delivered</button>
+                    }else{
+                        return <button onClick={() => handleDeliver(_id)} className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded-md">Mark as Delivered</button>
+                    }
+                }
+            })
         },
         {
             title: 'Details',

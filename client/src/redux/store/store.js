@@ -9,7 +9,7 @@ import { userRegisterReducer } from "../reducers/userRegisterReducer";
 import { userDetailsReducer } from "../reducers/userDetailsReducer";
 import { userUpdateProfileReducer, userUpdateReducer } from "../reducers/userUpdateProfileReducer";
 import { stepsReducer } from "../reducers/stepsReducers";
-import { myOrdersReducer, orderCreateReducer, orderDetailReducer, orderListReducer, orderPayReducer } from "../reducers/orderReducers";
+import { myOrdersReducer, orderCreateReducer, orderDeliverReducer, orderDetailReducer, orderListReducer, orderPayReducer } from "../reducers/orderReducers";
 import { userListReducer } from "../reducers/userListReducers";
 import { sidebarReducer } from "../reducers/SidebarReducer";
 import {userDeleteReducer} from "../reducers/userDeleteReducer";
@@ -30,6 +30,7 @@ const reducer = combineReducers({
   orderDetails : orderDetailReducer,
   orderPay : orderPayReducer,
   orderList : orderListReducer,
+  orderDeliver:orderDeliverReducer,
   myOrders : myOrdersReducer,
   userList:userListReducer,
   sideBarToggle : sidebarReducer,

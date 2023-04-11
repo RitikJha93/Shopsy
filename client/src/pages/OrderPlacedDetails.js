@@ -77,7 +77,7 @@ const OrderPlacedDetails = () => {
               <strong>Mail : <a href={`mailto:${order?.user.email}`} className="font-normal">{order?.user.email}</a></strong>
             </div>
             {
-              !(order.isDelivered) && <Alert className="mt-4 w-[100%]" message='Not Delivered' type='error' showIcon />
+              !(order.isDelivered) ? <Alert className="mt-4 w-[100%]" message='Not Delivered' type='error' showIcon /> : <Alert className="mt-4 w-[100%]" message={order.deliveredAt} type='success' showIcon />
             }
           </div>
           <hr className="my-4" />
