@@ -108,7 +108,10 @@ const AdminUsersTable = () => {
             <h1 className='text-xl font-bold mb-4'>Users</h1>
 
             {
-                loading ? <Loader /> : error ? <Message type='error' message={error} /> : <Table columns={columns} dataSource={users} />}
+                loading ?
+                    <div className="h-[300px] flex items-center justify-center">
+                        <Spin size="large" />
+                    </div> : error ? <Message type='error' message={error} /> : <Table columns={columns} dataSource={users} />}
             <Modal
                 title="Are you sure you want to delete?"
                 centered

@@ -3,7 +3,7 @@ import { deliverOrder, getAllOrders } from "../../../redux/actions/orderActions"
 import { useEffect, useState } from "react"
 import Message from "../../Message"
 import Loader from "../../Loader"
-import { Select, Table, Tag } from "antd"
+import { Select, Spin, Table, Tag } from "antd"
 import { Link } from "react-router-dom"
 
 const AdminOrdersTable = () => {
@@ -64,11 +64,11 @@ const AdminOrdersTable = () => {
             title: 'Delivered',
             key: '_id',
             dataIndex: '_id',
-            render: (_id) => orders.map((order) =>{
-                if(order._id === _id) {
-                    if(order.isDelivered){
-                        return <button className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded-md cursor-not-allowed">Mark as Delivered</button>
-                    }else{
+            render: (_id) => orders.map((order) => {
+                if (order._id === _id) {
+                    if (order.isDelivered) {
+                        return <button className="bg-blue-200 text-white py-1 px-2 rounded-md cursor-not-allowed">Mark as Delivered</button>
+                    } else {
                         return <button onClick={() => handleDeliver(_id)} className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded-md">Mark as Delivered</button>
                     }
                 }
@@ -85,7 +85,9 @@ const AdminOrdersTable = () => {
         <div className="mt-8">
             <h1 className='text-xl font-bold mb-4'>Orders</h1>
             {
-                loading ? <Loader /> : error ? <Message type='error' message={error} /> : <Table columns={columns} dataSource={orders} />}
+                loading ? <div className="h-[300px] flex items-center justify-center">
+                    <Spin size="large" />
+                </div> : error ? <Message type='error' message={error} /> : <Table columns={columns} dataSource={orders} />}
 
         </div>
 

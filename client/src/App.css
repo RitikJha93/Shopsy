@@ -9,3 +9,6 @@
 .rightbar{
   width: calc(100vw - 250px);
 }
+.rightbar_closed{
+  width: calc(100vw - 90px);
+}

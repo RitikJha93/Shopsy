@@ -15,7 +15,7 @@ import InputField from './InputField';
 const AdminProductsTable = () => {
 
     const productDetails = useSelector((state) => state.productDetails)
-    const { product } = productDetails
+    const { loading: productDetailLoading, product } = productDetails
     const [deleteModal, setDeleteModal] = useState(false)
     const [editModal, setEditModal] = useState(false)
     const [createModal, setCreateModal] = useState(false)
@@ -161,11 +161,11 @@ const AdminProductsTable = () => {
 
     useEffect(() => {
         dispatch(listProducts())
-        if(updateSuccess && products){
-            dispatch({type:'PRODUCT_UPDATE_RESET'})
+        if (updateSuccess && products) {
+            dispatch({ type: 'PRODUCT_UPDATE_RESET' })
         }
-        if(createSuccess && products){
-            dispatch({type:'PRODUCT_CREATE_RESET'})
+        if (createSuccess && products) {
+            dispatch({ type: 'PRODUCT_CREATE_RESET' })
         }
     }, [dispatch, deleteSuccess, createSuccess, updateSuccess])
     return (
@@ -195,49 +195,52 @@ const AdminProductsTable = () => {
                     style: { backgroundColor: '#3B82F6' }
                 }}
             >
-                <div className='flex justify-between flex-wrap'>
-                    {
-                        Object.keys(createProductFields).map((product) => {
-                            return (
-                                <InputField
-                                    placeholder={product}
-                                    name={product}
-                                    onChange={handleChange}
-                                    type={'text'}
-                                />
-                            )
-                        })
-                    }
-                    <div className="flex items-center justify-around w-full mt-2">
-                        <div
-                            id="dropzone"
-                            className="border border-dashed  lg:mt-0 mt-3 sm:w-[300] w-[300px] h-[200px] relative flex justify-center items-center"
-                        >
-                            {file ? (
-                                <div className="relative w-full">
-                                    <img
-                                        className="sm:w-[400px] w-[300px] h-[200px] object-contain"
-                                        src={URL.createObjectURL(file)}
-                                        alt=""
+                {productDetailLoading ?
+                    <div className="h-[300px] flex items-center justify-center">
+                        <Spin size="large" />
+                    </div> : <div className='flex justify-between flex-wrap'>
+                        {
+                            Object.keys(createProductFields).map((product) => {
+                                return (
+                                    <InputField
+                                        placeholder={product}
+                                        name={product}
+                                        onChange={handleChange}
+                                        type={'text'}
                                     />
-                                    <AiFillCloseCircle
-                                        onClick={() => setFile(null)}
-                                        className="absolute top-2 right-2 text-2xl text-gray-700"
-                                    />
-                                </div>
-                            ) : (
-                                <span className="">Select picture to see the preview</span>
-                            )}
+                                )
+                            })
+                        }
+                        <div className="flex items-center justify-around w-full mt-2">
+                            <div
+                                id="dropzone"
+                                className="border border-dashed  lg:mt-0 mt-3 sm:w-[300] w-[300px] h-[200px] relative flex justify-center items-center"
+                            >
+                                {file ? (
+                                    <div className="relative w-full">
+                                        <img
+                                            className="sm:w-[400px] w-[300px] h-[200px] object-contain"
+                                            src={URL.createObjectURL(file)}
+                                            alt=""
+                                        />
+                                        <AiFillCloseCircle
+                                            onClick={() => setFile(null)}
+                                            className="absolute top-2 right-2 text-2xl text-gray-700"
+                                        />
+                                    </div>
+                                ) : (
+                                    <span className="">Select picture to see the preview</span>
+                                )}
+                            </div>
+                            <input type="file" id="fileInput" onChange={handleUpload} hidden />
+                            <button className="bg-blue-500 mt-3 w-[150px] ] flex items-center text-white rounded-lg py-2 px-4 ">
+                                <label htmlFor="fileInput" className="w-[150px] cursor-pointer">
+                                    <AiFillFileAdd className="w-[25px] mr-2 inline-flex h-[25px] text-center object-cover ml-2 cursor-pointer" />
+                                    <span>Add Pic</span>
+                                </label>
+                            </button>
                         </div>
-                        <input type="file" id="fileInput" onChange={handleUpload} hidden />
-                        <button className="bg-blue-500 mt-3 w-[150px] ] flex items-center text-white rounded-lg py-2 px-4 ">
-                            <label htmlFor="fileInput" className="w-[150px] cursor-pointer">
-                                <AiFillFileAdd className="w-[25px] mr-2 inline-flex h-[25px] text-center object-cover ml-2 cursor-pointer" />
-                                <span>Add Pic</span>
-                            </label>
-                        </button>
-                    </div>
-                </div>
+                    </div>}
 
             </Modal>
             <Modal
