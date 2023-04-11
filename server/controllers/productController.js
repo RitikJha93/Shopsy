@@ -80,5 +80,33 @@ const updateProduct = async (req, res) => {
   }
 };
 
+const createProductReview = async(req,res)=>{
+  const {rating,comment} = req.body
+  const product = await Product.findById(req.params.id)
 
-module.exports = { getAllProducts, getParticularProduct, deleteProduct, createProduct, updateProduct };
+  if(product){
+    const alreadyReviewed = product.reviews.find((r)=>r.user.toString() === req.user._id.toString())
+    if(alreadyReviewed){
+      return res.status(400).json({ message: 'Review already reviewed'})
+    }
+
+    const review = {
+      name : req.user.name,
+      rating : Number(rating),
+      comment,
+      user:req.user._id
+    }
+
+    product.reviews.push(review)
+    product.numReviews = product.reviews.length
+
+    product.rating = product.reviews.reduce((acc,item) => acc + item.rating , 0)/product.reviews.length
+
+    await product.save()
+    res.status(201).json({message:'Review Added'})
+  }else{
+    res.status(400).json({ message: 'Product Not found'})
+
+  }
+}
+module.exports = { getAllProducts, getParticularProduct, deleteProduct, createProduct, updateProduct,createProductReview };
