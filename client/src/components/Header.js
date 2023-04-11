@@ -24,8 +24,11 @@ const Header = () => {
     e.preventDefault()
     if (keyWords.trim()) {
       navigate(`/search/${keyWords}`)
+      setSearchBarOpen(false)
+
     } else {
       navigate('/')
+      setSearchBarOpen(false)
     }
   }
   const dispatch = useDispatch();
@@ -62,9 +65,11 @@ const Header = () => {
           searchBarOpen ?
             <div className="w-[100%] flex items-center relative">
               <form onSubmit={submitHandler} className="w-full">
-                <input onChange={(e) => setkeyWords(e.target.value)} placeholder="Search..." type="text" className="border-b-2 border-black outline-none px-2 py-1 text-lg w-full" />
+                <input onChange={(e) => setkeyWords(e.target.value)} placeholder="Search..." type="text" className="border-b-2 focus:border-blue-500 border-black outline-none px-2 py-1 text-lg w-full" />
               </form>
-              <AiOutlineClose className="text-2xl mr-3 cursor-pointer" onClick={() => setSearchBarOpen(false)} />
+              <AiOutlineClose className="text-2xl mr-3 cursor-pointer" onClick={() => {
+                setSearchBarOpen(false)
+              }} />
             </div> :
             <>
               <Link to={"/"} className={`${searchBarOpen ? '-translate-x-[100%]' : 'translate-x-0'} transition-all`}>

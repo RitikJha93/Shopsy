@@ -2,17 +2,24 @@ const Product = require("../models/productModel");
 const uploadImage = require("../utils/uploadImage");
 
 const getAllProducts = async (req, res) => {
-  const keyword = req.query.keyword ? { 
-    name: { $regex:req.query.keyword,$options : 'i' } 
+  const keyword = req.query.keyword ? {
+    name: { $regex: req.query.keyword, $options: 'i' }
   } : {}
   try {
-    const products = await Product.find({...keyword});
+    const products = await Product.find({ ...keyword });
     res.status(200).json(products);
   } catch (error) {
     res.status(500).json({ 'message': 'Something went wrong' });
   }
 };
-
+const getTopProducts = async (req, res) => {
+  try {
+    const topProducts = await Product.find({}).sort({ rating: -1 }).limit(5)
+    res.status(200).json(topProducts)
+  } catch (error) {
+    return res.status(500).json({ message: 'Something went wrong' });
+  }
+}
 const getParticularProduct = async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -112,4 +119,4 @@ const createProductReview = async (req, res) => {
 
   }
 }
-module.exports = { getAllProducts, getParticularProduct, deleteProduct, createProduct, updateProduct, createProductReview };
+module.exports = { getAllProducts, getParticularProduct, deleteProduct, createProduct, updateProduct, createProductReview,getTopProducts };

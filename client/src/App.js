@@ -36,7 +36,7 @@ function App() {
       }
       <Routes>
         <Route exact path='/' element={<Home />} />
-        <Route exact path='/search/:keyword' element={<Home />} />
+        <Route exact path='/search/:keyword' element={<Home search/>} />
         <Route exact path='/about' element={<About />} />
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/register' element={<Register />} />

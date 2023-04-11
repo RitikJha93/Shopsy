@@ -7,7 +7,7 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { useLocation, useParams } from "react-router-dom";
 
-const Home = () => {
+const Home = ({search}) => {
   const productList = useSelector((state) => state.productList);
   const { products, error, loading } = productList;
 
@@ -22,7 +22,7 @@ const Home = () => {
         <Loader />
       ) : error ? <Message message={error} type={'error'} /> : (
         <>
-          <Hero />
+          {!search && <Hero />}
           <LatestProducts products={products} />
         </>
       )}
