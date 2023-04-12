@@ -9,7 +9,7 @@ const getAllProducts = async (req, res) => {
     const products = await Product.find({ ...keyword });
     res.status(200).json(products);
   } catch (error) {
-    res.status(500).json({ 'message': 'Something went wrong' });
+    res.status(500).json({ message: 'Something went wrong' });
   }
 };
 const getTopProducts = async (req, res) => {

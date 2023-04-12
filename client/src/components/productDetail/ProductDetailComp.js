@@ -3,6 +3,7 @@ import products from "../../products";
 import { AiOutlinePlus } from "react-icons/ai";
 import { AiOutlineMinus } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
+import Meta from "../Meta";
 const ProductDetailComp = ({ selectedProduct }) => {
   const [quantity, setQuantity] = useState(1);
 
@@ -12,6 +13,7 @@ const ProductDetailComp = ({ selectedProduct }) => {
   }
   return (
     <div className="">
+      <Meta title={selectedProduct?.name} />
       <Link to={"/"}>
         <button className="border border-blue-500 rounded-lg px-4 py-2 mb-4">
           Go Back
