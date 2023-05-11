@@ -30,13 +30,13 @@ const Hero = () => {
         {data.map((item, i) => {
           return (
             <div key={i}>
-              <div className="flex items-center h-[86vh] justify-around leading-8">
+              <div className="flex sm:px-10 px-4 md:flex-row flex-col-reverse items-center h-[86vh] justify-around leading-8">
                 <div>
-                  <h2 className="font-bold text-5xl">{item.title}</h2>
+                  <h2 className="font-bold sm:text-5xl text-3xl">{item.title}</h2>
                   <p className="font-medium text-2xl my-2">{item.description}</p>
                   <button className="bg-orange-600 text-white px-4 py-2">BUY NOW</button>
                 </div>
-                <img className="max-w-[650px]" src={item.img} alt="" />
+                <img className="lg:max-w-[650px] md:max-w-[500px] sm:max-w-[400px] max-w-[320px]" src={item.img} alt="" />
               </div>
             </div>
           )

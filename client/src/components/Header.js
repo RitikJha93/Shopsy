@@ -79,7 +79,7 @@ const Header = () => {
                     onClick={() => setMenuOpen(true)}
                   />
                   <img src={logo} alt="" />
-                  <h2 className="ml-3 font-bold text-xl mb-0">Shopsy</h2>
+                  <h2 className="ml-3 sm:block hidden font-bold text-xl mb-0">Shopsy</h2>
                 </div>
               </Link>
               <ul
