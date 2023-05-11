@@ -82,6 +82,7 @@ const AdminOrdersTable = () => {
         },
     ];
     return (
+
         <div className="mt-8">
             <h1 className='text-xl font-bold mb-4'>Orders</h1>
             {
