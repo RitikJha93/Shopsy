@@ -18,7 +18,7 @@ const options = {
 app.use(cors(options))
 
 app.get('/', (req, res) => {
-    res.send("server running")
+    res.send("server running on port 80")
 })
 
 app.get('/api/config/paypal', (req, res) => res.send(process.env.PAYPAL_CLIENT_ID))

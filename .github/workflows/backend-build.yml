@@ -24,5 +24,17 @@ jobs:
         working-directory: ./server
 
       - name: Start server
-        run: npm start
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI}}
+        run: npm start &
+          echo $! > server.pid
+        working-directory: ./server
+
+      - name: Run next steps
+        run: |
+          echo "Continue workflow"
+
+      - name: Stop server
+        run: |
+            kill $(cat server.pid)
         working-directory: ./server
