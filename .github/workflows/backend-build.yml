@@ -1,0 +1,40 @@
+name: Build on PR
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - server/**
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      - name: Install Dependencies
+        run: npm install
+        working-directory: ./server
+
+      - name: Start server
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI}}
+        run: npm start &
+          echo $! > server.pid
+        working-directory: ./server
+
+      - name: Run next steps
+        run: |
+          echo "Continue workflow"
+
+      - name: Stop server
+        run: |
+            kill $(cat server.pid)
+        working-directory: ./server

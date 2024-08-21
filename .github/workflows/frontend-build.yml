@@ -4,6 +4,8 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+      - client/**
 
 jobs:
   build:
@@ -19,6 +21,8 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
+        working-directory : ./client
 
       - name: Build
         run: npm run build
+        working-directory : ./client
