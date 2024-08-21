@@ -13,12 +13,12 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Use Nodejs
-        uses: actions/setup-nodejs@v3
+        uses: actions/setup-node@v3
         with:
           node-version : "20"
 
       - name: Install Dependencies
-        uses: npm install
+        run: npm install
 
       - name: Build
-        uses: npm run build
+        run: npm run build
