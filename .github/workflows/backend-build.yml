@@ -22,12 +22,19 @@ jobs:
       - name: Install Dependencies
         run: npm install
         working-directory: ./server
-        
-      - name: Debug Secrets
-        run: echo "MONGO_URI=${{ secrets.MONGO_URI }}"
-      
+
       - name: Start server
-        working-directory: ./server
         env:
-            MONGO_URI : ${{ secrets.MONGO_URI}}
-        run: npm start
+          MONGO_URI: ${{ secrets.MONGO_URI}}
+        run: npm start &
+          echo $! > server.pid
+        working-directory: ./server
+
+      - name: Run next steps
+        run: |
+          echo "Continue workflow"
+
+      - name: Stop server
+        run: |
+            kill $(cat server.pid)
+        working-directory: ./server
