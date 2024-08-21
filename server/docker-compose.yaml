@@ -1,0 +1,15 @@
+version: '4.0'
+services:
+    backend:
+      image : ritikjha/shopsy-backend:v1
+      container_name : backend_app
+      ports :
+        - "5000:5000"
+      env_file:
+        - .env
+      environment : 
+        - JWT_SECRET = ${JWT_SECRET}
+        - CLOUD_SECRET_KEY = ${CLOUD_SECRET_KEY}
+        - CLOUD_API_KEY = ${CLOUD_API_KEY}
+        - CLOUD_NAME = ${CLOUD_NAME}
+        - MONGO_URI = ${MONGO_URI}
