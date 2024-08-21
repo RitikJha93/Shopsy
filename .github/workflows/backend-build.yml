@@ -17,10 +17,12 @@ jobs:
       - name: Use Nodejs
         uses: actions/setup-node@v3
         with:
-          node-version : "20"
+          node-version: "20"
 
       - name: Install Dependencies
         run: npm install
+        working-directory: ./server
 
       - name: Start server
         run: npm start
+        working-directory: ./server
