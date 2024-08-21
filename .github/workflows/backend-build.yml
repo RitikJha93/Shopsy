@@ -26,5 +26,5 @@ jobs:
       - name: Start server
         working-directory: ./server
         env:
-            MONGO_URI: ${{ secrets.MONGO_URI }}
+            MONGO_URI: ${{ secrets.MONGO_URL}}
         run: npm start
