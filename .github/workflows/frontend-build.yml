@@ -1,4 +1,4 @@
-name: Build on PR
+name: Build Frontend on PR
 
 on:
   pull_request:
