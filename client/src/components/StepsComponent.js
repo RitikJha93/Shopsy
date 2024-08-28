@@ -1,10 +1,8 @@
-import { Button, message, Steps, theme } from "antd";
-import { useState } from "react";
+import { Button, Steps } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import Order from "../pages/Order";
 import Payment from "../pages/Payment";
 import Shipping from "../pages/Shipping";
-import Login from "./login/Login";
 
 const steps = [
   {
@@ -22,7 +20,7 @@ const steps = [
 ];
 
 const StepsComponent = () => {
-  const { token } = theme.useToken();
+  // const { token } = theme.useToken();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userData } = userLogin;
@@ -36,9 +34,9 @@ const StepsComponent = () => {
 
   const dispatch = useDispatch();
 
-  const next = () => {
-    dispatch({ type: "INCREASE_STEP" });
-  };
+  // const next = () => {
+  //   dispatch({ type: "INCREASE_STEP" });
+  // };
   const prev = () => {
     dispatch({ type: "DECREASE_STEP" });
   };
@@ -47,15 +45,6 @@ const StepsComponent = () => {
     title: item.title,
   }));
 
-  const contentStyle = {
-    lineHeight: "260px",
-    textAlign: "center",
-    color: token.colorTextTertiary,
-    backgroundColor: token.colorFillAlter,
-    borderRadius: token.borderRadiusLG,
-    border: `1px dashed ${token.colorBorder}`,
-    marginTop: 16,
-  };
 
   return (
     <div className="mt-24 px-24">

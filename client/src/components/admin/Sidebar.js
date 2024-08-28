@@ -2,7 +2,6 @@ import { IoIosArrowBack } from 'react-icons/io'
 import { IoIosArrowForward } from 'react-icons/io'
 
 import logo from '../../assets/shopsyLogo.png'
-import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import SideBarMenus from './SideBarMenus'
 const Sidebar = () => {

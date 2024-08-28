@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { saveShippingAddress } from "../redux/actions/cartActions";
 
 const Shipping = () => {
@@ -11,11 +10,9 @@ const Shipping = () => {
   const [country, setCountry] = useState(shippingAddress.country);
   const [city, setCity] = useState(shippingAddress.city);
   const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const stepsData = useSelector((state) => state.stepsAction)
-  const {step} = stepsData
+  // const stepsData = useSelector((state) => state.stepsAction)
   const handleSaveAddress = () => {
     dispatch(saveShippingAddress({ address, city, postalCode, country }));
     dispatch({type:'INCREASE_STEP'})

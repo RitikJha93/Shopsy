@@ -3,7 +3,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   userLoginRequest,
-  userRegisterRequest,
 } from "../../redux/actions/userActions";
 import Loader from "../Loader";
 import Message from "../Message";
@@ -11,7 +10,6 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
 
   // console.log(document.location.search);
   const location = useLocation();

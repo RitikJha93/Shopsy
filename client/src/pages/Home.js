@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { listProducts } from "../redux/actions/productActions";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Meta from "../components/Meta";
 
 const Home = ({search}) => {

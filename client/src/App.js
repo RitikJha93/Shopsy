@@ -10,17 +10,13 @@ import OrderPlacedDetails from './pages/OrderPlacedDetails';
 import Payment from './pages/Payment';
 import ProductDetail from './pages/ProductDetail';
 import Profile from './pages/Profile';
-import Shipping from './pages/Shipping';
 import Dashboard from './pages/Dashboard';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import AdminUsersPage from './pages/AdminUsersPage';
 import AdminProductsPage from './pages/AdminProductsPage';
 import AdminOrdersPage from './pages/AdminOrdersPage';
 import About from './pages/About';
 
-
-console.log(process.env.REACT_APP_BACKEND_URL);
 function App() {
 
   const userLogin = useSelector((state) => state.userLogin)

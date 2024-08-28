@@ -11,13 +11,14 @@ import { PayPalButton } from "react-paypal-button-v2";
 const OrderPlacedDetails = () => {
 
   const [sdkReady, setSdkReady] = useState(false)
+  console.log(sdkReady)
   const { orderId } = useParams()
   const dispatch = useDispatch()
   const orderDetails = useSelector((state) => state.orderDetails)
   const { order, loading, error } = orderDetails
 
   const orderPay = useSelector((state) => state.orderPay)
-  const { loading: loadingPay, success: successPay } = orderPay
+  const { success: successPay } = orderPay
 
   if (!loading) {
     order.itemsPrice = order?.orderItems
@@ -40,7 +41,7 @@ const OrderPlacedDetails = () => {
     }
 
     if (!order || successPay) {
-      dispatch({type:'ORDER_PAY_RESET'})
+      dispatch({ type: 'ORDER_PAY_RESET' })
     }
     else if (!order.isPaid) {
       if (!window.paypal) {
@@ -53,12 +54,12 @@ const OrderPlacedDetails = () => {
 
   useEffect(() => {
     dispatch(getOrderDetails(orderId))
-  }, [orderId,successPay])
-  
+  }, [orderId, successPay])
 
-  const successPaymentHandler = (paymentResult) =>{
+
+  const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult);
-    dispatch(payOrder(orderId,paymentResult))
+    dispatch(payOrder(orderId, paymentResult))
   }
   return (
     <div className="mt-24 md:px-24 sm:px-12 px-6 grid grid-cols-3 gap-5">
@@ -87,7 +88,7 @@ const OrderPlacedDetails = () => {
               <strong>Method : </strong> {order?.paymentMethod}
             </p>
             {
-              !order.isPaid ? <Alert className="mt-4" message='Not Paid' type='error' showIcon /> :  <Alert className="mt-4" message={order.paidAt} type='success' showIcon />
+              !order.isPaid ? <Alert className="mt-4" message='Not Paid' type='error' showIcon /> : <Alert className="mt-4" message={order.paidAt} type='success' showIcon />
             }
           </div>
           <hr className="my-4" />
@@ -149,7 +150,7 @@ const OrderPlacedDetails = () => {
             {
               !order.isPaid && <div>
                 {/* {loadingPay && <Loader />} */}
-                <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler}/>
+                <PayPalButton amount={order.totalPrice} onSuccess={successPaymentHandler} />
               </div>
             }
           </div>

@@ -1,13 +1,11 @@
-import { Alert, Modal, Radio, Space, Spin, Table, Tag } from 'antd';
+import { Alert, Modal, Spin, Table, Tag } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserList, getUserRequest, userDeleteRequest, userUpdateRequest } from '../../../redux/actions/userActions';
 import { useEffect, useState } from 'react';
 import Message from '../../Message'
-import Loader from '../../Loader'
 import { FiEdit } from 'react-icons/fi'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { Link } from 'react-router-dom';
-import { ExclamationCircleFilled } from '@ant-design/icons';
 
 
 const AdminUsersTable = () => {
@@ -22,9 +20,9 @@ const AdminUsersTable = () => {
     const userDetails = useSelector((state) => state.userDetails)
     const { loading: editLoading, user } = userDetails
     const userDelete = useSelector((state) => state.userDelete)
-    const { success: successDelete, error: errorDelete } = userDelete
+    const { success: successDelete } = userDelete
     const userUpdate = useSelector((state) => state.userUpdate)
-    const { success: successEdit, error: errorEdit } = userUpdate
+    const { success: successEdit } = userUpdate
 
     const [email, setEmail] = useState(user.email);
     const [name, setName] = useState(user.name);
