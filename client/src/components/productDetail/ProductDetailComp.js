@@ -1,5 +1,4 @@
 import { useState } from "react";
-import products from "../../products";
 import { AiOutlinePlus } from "react-icons/ai";
 import { AiOutlineMinus } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";

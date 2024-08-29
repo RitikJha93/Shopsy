@@ -1,7 +1,6 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const CartSubtotal = ({ cartItems }) => {
-  const navigate = useNavigate();
 
   return (
     <div className="border-[2px] min-h-[300px] rounded-lg p-6">

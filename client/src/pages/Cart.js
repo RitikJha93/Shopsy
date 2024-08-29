@@ -1,14 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useSearchParams } from "react-router-dom";
-import Message from "../components/Message";
+import { useParams } from "react-router-dom";
 import { addToCart } from "../redux/actions/cartActions";
 import Lottie from "lottie-react";
 import cartAnimation from "../assets/cart.json";
 import CartItemComp from "../components/cart/CartItemComp";
 import CartSubtotal from "../components/cart/CartSubtotal";
 const Cart = () => {
-  const searchParams = new URLSearchParams(document.location.search);
+  // const searchParams = new URLSearchParams(document.location.search);
   const prodId = useParams().id;
 
   const qty = document.location.search

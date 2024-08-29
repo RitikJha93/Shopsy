@@ -6,7 +6,6 @@ import { BiMenuAltLeft } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import MenuComp from "./MenuComp";
 import DropDown from "./DropDown";
 import { userLogout } from "../redux/actions/userActions";
 

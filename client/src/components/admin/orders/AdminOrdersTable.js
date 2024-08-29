@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from "react-redux"
 import { deliverOrder, getAllOrders } from "../../../redux/actions/orderActions"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import Message from "../../Message"
-import Loader from "../../Loader"
-import { Select, Spin, Table, Tag } from "antd"
+import { Spin, Table, Tag } from "antd"
 import { Link } from "react-router-dom"
 
 const AdminOrdersTable = () => {
@@ -11,9 +10,9 @@ const AdminOrdersTable = () => {
     const orderList = useSelector((state) => state.orderList)
     const { loading, error, orders } = orderList
     const orderDeliver = useSelector((state) => state.orderDeliver)
-    const { loading: deliverLoading, error: deliverError, success: deliverSuccess } = orderDeliver
+    const { success: deliverSuccess } = orderDeliver
 
-    const [deliveredStatus, setDeliveredStatus] = useState('Not Delivered')
+    // const [deliveredStatus, setDeliveredStatus] = useState('Not Delivered')
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(getAllOrders())
@@ -72,6 +71,7 @@ const AdminOrdersTable = () => {
                         return <button onClick={() => handleDeliver(_id)} className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded-md">Mark as Delivered</button>
                     }
                 }
+                return <p>-</p>
             })
         },
         {

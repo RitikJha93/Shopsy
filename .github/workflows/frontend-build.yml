@@ -1,4 +1,4 @@
-name: Build on PR
+name: Build Frontend on PR
 
 on:
   pull_request:
@@ -20,7 +20,7 @@ jobs:
           node-version : "20"
 
       - name: Install Dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
         working-directory : ./client
 
       - name: Build

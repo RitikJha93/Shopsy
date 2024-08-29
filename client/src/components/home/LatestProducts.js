@@ -1,7 +1,6 @@
-import { Col, Row } from "antd";
 
 import SingleProduct from "./SingleProduct";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 const LatestProducts = ({ products }) => {
 
   const {keyword} = useParams()

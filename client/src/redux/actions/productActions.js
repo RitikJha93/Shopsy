@@ -39,7 +39,7 @@ export const productDeleteRequest = (id) => async (dispatch, getState) => {
         Authorization: `Bearer ${userData.token}`,
       },
     };
-    const { data } = await axios.delete(
+    await axios.delete(
       `${process.env.REACT_APP_BACKEND_URL}/api/products/${id}`,
       config
     );

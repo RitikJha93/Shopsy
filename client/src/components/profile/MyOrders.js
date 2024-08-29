@@ -1,13 +1,13 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { getMyOrders } from "../../redux/actions/orderActions";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ImCross } from 'react-icons/im'
 import { TiTick } from 'react-icons/ti'
 const MyOrders = () => {
 
   const myOrders = useSelector((state) => state.myOrders)
-  const { orders, loading: orderLoading, error: orderError } = myOrders
+  const { orders } = myOrders
 
   const dispatch = useDispatch()
   useEffect(() => {

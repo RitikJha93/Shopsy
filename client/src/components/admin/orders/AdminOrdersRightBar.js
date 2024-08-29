@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux"
 import AdminHeader from "../AdminHeader"
-import AdminProductsTable from "../products/AdminProductsTable"
 import AdminOrdersTable from "./AdminOrdersTable"
 
 const AdminOrdersRightBar = () => {

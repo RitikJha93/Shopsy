@@ -1,9 +1,7 @@
-import { Alert, Button, Modal, Radio, Space, Spin, Table, Tag } from 'antd';
+import { Alert, Modal, Spin, Table } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserList, getUserRequest, userDeleteRequest, userUpdateRequest } from '../../../redux/actions/userActions';
 import { useEffect, useState } from 'react';
 import Message from '../../Message'
-import Loader from '../../Loader'
 import { FiEdit } from 'react-icons/fi'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 import { AiOutlinePlus } from 'react-icons/ai'
@@ -22,6 +20,7 @@ const AdminProductsTable = () => {
     const [deleteId, setDeleteId] = useState()
     const [file, setFile] = useState(null);
     const [img, setImg] = useState()
+    console.log(img)
     const [editImageUrl, setEditImageUrl] = useState()
     const [createProductFields, setCreateProductFields] = useState({
         name: '', price: null, brand: '', category: '', countInStock: null, numReviews: null, description: ''
@@ -50,12 +49,12 @@ const AdminProductsTable = () => {
     const { loading, products, error } = productList
 
     const productDelete = useSelector((state) => state.productDelete)
-    const { loading: deleteLoading, success: deleteSuccess, error: deleteError } = productDelete
+    const { success: deleteSuccess } = productDelete
 
     const productCreate = useSelector((state) => state.productCreate)
     const { loading: createLoading, success: createSuccess, error: createError } = productCreate
     const productUpdate = useSelector((state) => state.productUpdate)
-    const { loading: updateLoading, success: updateSuccess, error: updateError } = productUpdate
+    const { success: updateSuccess } = productUpdate
 
     const dispatch = useDispatch()
     const openDeleteConfirm = (id) => {
@@ -110,7 +109,7 @@ const AdminProductsTable = () => {
             title: 'Image',
             dataIndex: 'image',
             key: 'image',
-            render: (img) => <img className='w-[70px] h-[45px] object-cover rounded-md' src={img} />
+            render: (img) => <img className='w-[70px] h-[45px] object-cover rounded-md' src={img} alt='NA' />
         },
         {
             title: 'Name',

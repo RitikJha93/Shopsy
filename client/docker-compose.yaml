@@ -1,0 +1,11 @@
+version: '4.0'
+services:
+    frontend:
+      image : ritikjha/shopsy-frontend:v1
+      container_name: frontend_app
+      ports:
+        - "3000:3000"
+      env_file:
+        - .env
+      environment:
+        - REACT_APP_BACKEND_URL = ${REACT_APP_BACKEND_URL}

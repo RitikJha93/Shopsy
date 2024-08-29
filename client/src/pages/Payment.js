@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { savePaymentMethod } from "../redux/actions/cartActions";
 
 const Payment = () => {
-  const stepsData = useSelector((state) => state.stepsAction);
-  const { step } = stepsData;
+  // const stepsData = useSelector((state) => state.stepsAction);
+  // const { step } = stepsData;
 
   const [paymentMethod, setPaymentMethod] = useState('paypal')
   const dispatch = useDispatch()

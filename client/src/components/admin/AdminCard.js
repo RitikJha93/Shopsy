@@ -5,7 +5,6 @@ import { HiUsers } from 'react-icons/hi'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserList } from '../../redux/actions/userActions'
 import { getAllOrders } from '../../redux/actions/orderActions'
-import Loader from '../Loader'
 import Message from '../Message'
 import { Spin } from 'antd'
 const AdminCard = () => {
