@@ -38,7 +38,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_SECRET }}
           script: |
-            cd /client/docker-compose # Navigate to the directory with your docker-compose.yml file
+            cd /client # Navigate to the directory with your docker-compose.yml file
             sudo docker-compose pull frontend # Pull the latest image
             sudo docker-compose down # Stop and remove the current container
             sudo docker-compose up -d # Start the container using docker-compose
