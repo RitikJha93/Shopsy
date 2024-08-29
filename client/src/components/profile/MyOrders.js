@@ -4,7 +4,6 @@ import { getMyOrders } from "../../redux/actions/orderActions";
 import { Link } from "react-router-dom";
 import { ImCross } from 'react-icons/im'
 import { TiTick } from 'react-icons/ti'
-
 const MyOrders = () => {
 
   const myOrders = useSelector((state) => state.myOrders)
