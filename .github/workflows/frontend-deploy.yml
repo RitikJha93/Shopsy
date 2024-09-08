@@ -41,4 +41,4 @@ jobs:
             sudo docker pull ritikjha/shopsy-frontend:v1
             sudo docker stop shopsy-frontend || true
             sudo docker rm shopsy-frontend || true
-            sudo docker run -d --name shopsy-frontend -p 3005:3000 -e REACT_APP_BACKEND_URL=${{secrets.REACT_APP_BACKEND_URL}} ritikjha/shopsy-frontend:v1
+            sudo docker run -d --name shopsy-frontend -p 3000:3000 -e REACT_APP_BACKEND_URL=${{secrets.REACT_APP_BACKEND_URL}} ritikjha/shopsy-frontend:v1
