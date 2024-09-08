@@ -38,6 +38,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_SECRET }}
           script: |
-            sudo docker-compose pull frontend # Pull the latest image
-            sudo docker-compose down # Stop and remove the current container
-            sudo docker-compose up -d # Start the container using docker-compose
+            sudo docker pull ritikjha/shopsy-frontend:v1
+            sudo docker stop shopsy-frontend || true
+            sudo docker rm shopsy-frontend || true
+            sudo docker run -d --name shopsy-frontend -p 3005:3000 -e REACT_APP_BACKEND_URL=${{secrets.REACT_APP_BACKEND_URL}} ritikjha/shopsy-frontend:v1
