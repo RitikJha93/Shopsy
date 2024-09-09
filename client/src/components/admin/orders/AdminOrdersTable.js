@@ -4,7 +4,6 @@ import { useEffect } from "react"
 import Message from "../../Message"
 import { Spin, Table, Tag } from "antd"
 import { Link } from "react-router-dom"
-
 const AdminOrdersTable = () => {
 
     const orderList = useSelector((state) => state.orderList)
